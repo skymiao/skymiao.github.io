@@ -1,0 +1,128 @@
+<!--
+  File: github-pages-test-index.html
+  Usage: Drop this file in the root of a GitHub repo (or in a `docs/` folder) and enable GitHub Pages
+         Settings -> Pages -> Branch: main (or gh-pages) -> / (root) or /docs
+-->
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>GitHub Pages 测试页</title>
+  <meta name="description" content="一个用于 GitHub Pages 静态页面测试的示例单文件站点。">
+  <style>
+    :root{--bg:#0f1724;--card:#0b1220;--muted:#9aa4b2;--accent:#6ee7b7}
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial}
+    body{background:linear-gradient(180deg,#071124 0%, #08122a 60%);color:#e6eef6;line-height:1.6}
+    .container{max-width:1100px;margin:40px auto;padding:24px}
+    header{display:flex;align-items:center;justify-content:space-between}
+    .brand{display:flex;gap:14px;align-items:center}
+    .logo{width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,var(--accent),#60a5fa);display:flex;align-items:center;justify-content:center;font-weight:700;color:#042;box-shadow:0 6px 18px rgba(0,0,0,0.45)}
+    nav a{color:var(--muted);text-decoration:none;margin-left:18px}
+    .hero{display:grid;grid-template-columns:1fr 360px;gap:28px;margin-top:28px}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:20px;border-radius:14px;box-shadow:0 6px 30px rgba(2,6,23,0.6);border:1px solid rgba(255,255,255,0.03)}
+    h1{margin:0 0 6px;font-size:28px}
+    p.lead{color:var(--muted);margin:0}
+    .quick{display:flex;flex-direction:column;gap:12px}
+    .btn{display:inline-block;padding:10px 14px;border-radius:10px;background:#0ea5a9;color:#012;border:none;text-decoration:none;font-weight:600}
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin-top:18px}
+    .project{padding:14px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.02))}
+    footer{margin-top:40px;color:var(--muted);font-size:13px;text-align:center}
+    code{background:#041022;padding:3px 6px;border-radius:6px;color:#9fe7d0}
+    .muted{color:var(--muted);font-size:14px}
+    .search{width:100%;padding:10px;border-radius:10px;background:#071625;border:1px solid rgba(255,255,255,0.03);color:inherit}
+    @media (max-width:880px){.hero{grid-template-columns:1fr;}.logo{width:48px;height:48px}}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="logo">GH</div>
+        <div>
+          <div style="font-weight:700">GitHub Pages 测试</div>
+          <div class="muted">单文件静态页面示例 — 可直接部署</div>
+        </div>
+      </div>
+      <nav>
+        <a href="#projects">Projects</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <div class="card">
+        <h1>欢迎 — 这是你的 GitHub Pages 测试页</h1>
+        <p class="lead">单文件、响应式、可用于演示个人主页、项目集或文档目录。向下滚动查看示例内容与使用说明。</p>
+
+        <div style="margin-top:14px" class="quick">
+          <input class="search" placeholder="搜索项目或文章 (示例无搜索后端)" />
+          <div style="display:flex;gap:8px;margin-top:6px">
+            <a class="btn" href="#projects">查看项目</a>
+            <a class="btn" href="#about" style="background:#334155;color:#e6eef6">关于此页</a>
+          </div>
+        </div>
+
+        <div class="grid" id="projects" style="margin-top:18px">
+          <div class="project">
+            <strong>示例项目 A</strong>
+            <div class="muted" style="margin-top:6px">展示样板 README、截图与链接。</div>
+          </div>
+          <div class="project">
+            <strong>示例项目 B</strong>
+            <div class="muted" style="margin-top:6px">适用于静态网站、博客模板或演示。</div>
+          </div>
+          <div class="project">
+            <strong>示例项目 C</strong>
+            <div class="muted" style="margin-top:6px">用作 GitHub Actions CI/CD 测试目标。</div>
+          </div>
+        </div>
+
+      </div>
+
+      <aside class="card">
+        <h3 style="margin-top:0">快速开始</h3>
+        <ol class="muted" style="padding-left:18px">
+          <li>把此文件命名为 <code>index.html</code> 并提交到仓库根目录或 <code>docs/</code> 文件夹。</li>
+          <li>打开仓库 Settings → Pages，选择分支（如 main）并保存。几分钟后页面就能访问。</li>
+          <li>页面 URL 通常为 <code>https://&lt;username&gt;.github.io/&lt;repo&gt;/</code> 或仅 <code>https://&lt;username&gt;.github.io/</code>（若为用户名仓库）。</li>
+        </ol>
+
+        <h4 style="margin-bottom:6px">自定义</h4>
+        <div class="muted">编辑文档中的文本、添加图片或项目卡。要引入更多文件（CSS、图片、JS），把它们上传到仓库并用相对路径引用。</div>
+
+        <div style="margin-top:12px;display:flex;gap:8px;justify-content:flex-end">
+          <a class="btn" href="https://docs.github.com/en/pages" target="_blank" rel="noreferrer">GitHub Pages 文档</a>
+        </div>
+      </aside>
+    </section>
+
+    <section class="card" id="about" style="margin-top:20px">
+      <h2 style="margin:0 0 8px">关于这个页面</h2>
+      <p class="muted">这个示例使用纯 HTML + 内联 CSS，旨在为 GitHub Pages 的部署与样式验证提供最简单的起点。你可以：</p>
+      <ul class="muted">
+        <li>替换文字与图片，快速搭建个人主页。</li>
+        <li>添加 <code>_config.yml</code> + Jekyll 模板来使用 Jekyll 生成静态博客。</li>
+        <li>搭配 GitHub Actions 自动化构建/发布。</li>
+      </ul>
+    </section>
+
+    <section class="card" id="contact" style="margin-top:18px">
+      <h3 style="margin-top:0">联系 / 反馈</h3>
+      <p class="muted">如果需要我帮你进一步定制（例如添加博客列表、作品集、或整合 Google Analytics / Plausible 等），告诉我你的需求即可。</p>
+      <p class="muted">示例作者：<code>your-name</code></p>
+    </section>
+
+    <footer>
+      © <span id="year"></span> GitHub Pages 测试 · 由示例模板生成
+    </footer>
+  </div>
+
+  <script>
+    // 填充当前年份
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
