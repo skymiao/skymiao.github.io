@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>我的个性化博客</title>
+<style>
+    /* 页面整体样式 */
+    body {
+        margin: 0;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+        color: #333;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: 100vh;
+    }
+
+    header {
+        text-align: center;
+        padding: 60px 20px 20px 20px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 20px;
+        margin: 20px;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+
+    header h1 {
+        font-size: 3em;
+        margin-bottom: 10px;
+        background: linear-gradient(90deg, #ff7e5f, #feb47b);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: gradientText 5s ease infinite;
+    }
+
+    header p {
+        font-size: 1.2em;
+        color: #fff;
+    }
+
+    @keyframes gradientText {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+
+    main {
+        width: 90%;
+        max-width: 900px;
+        margin-top: 20px;
+    }
+
+    .post {
+        background: rgba(255, 255, 255, 0.25);
+        border-radius: 15px;
+        padding: 20px;
+        margin: 15px 0;
+        backdrop-filter: blur(5px);
+        transition: transform 0.3s, box-shadow 0.3s;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    .post:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+    }
+
+    .post h2 {
+        margin-top: 0;
+        color: #fff;
+    }
+
+    .post p {
+        color: #f0f0f0;
+    }
+
+    footer {
+        margin: 40px 0;
+        text-align: center;
+        color: #fff;
+    }
+
+    footer a {
+        color: #ffeb3b;
+        text-decoration: none;
+        margin: 0 10px;
+        transition: color 0.3s;
+    }
+
+    footer a:hover {
+        color: #ff5722;
+    }
+
+    /* 按钮样式 */
+    .btn {
+        display: inline-block;
+        margin-top: 10px;
+        padding: 10px 20px;
+        background: linear-gradient(90deg, #ff7e5f, #feb47b);
+        color: #fff;
+        border: none;
+        border-radius: 25px;
+        cursor: pointer;
+        text-decoration: none;
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+</style>
+</head>
+<body>
+<header>
+    <h1>我的炫彩博客</h1>
+    <p>记录生活点滴，分享精彩瞬间</p>
+</header>
+
+<main>
+    <div class="post">
+        <h2>博客文章标题 1</h2>
+        <p>这里是文章摘要，让访问者快速了解内容亮点。你可以添加更多文字，也可以添加图片和链接。</p>
+        <a href="#" class="btn">阅读更多</a>
+    </div>
+    <div class="post">
+        <h2>博客文章标题 2</h2>
+        <p>文章摘要示例，简洁明了，吸引读者点击阅读全文。</p>
+        <a href="#" class="btn">阅读更多</a>
+    </div>
+    <div class="post">
+        <h2>博客文章标题 3</h2>
+        <p>继续展示你的精彩内容，让页面充满活力和个性。</p>
+        <a href="#" class="btn">阅读更多</a>
+    </div>
+</main>
+
+<footer>
+    <p>© 2025 我的炫彩博客</p>
+    <a href="#">GitHub</a> | <a href="#">Twitter</a> | <a href="#">联系我</a>
+</footer>
+</body>
+</html>
