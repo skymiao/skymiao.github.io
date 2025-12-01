@@ -1,0 +1,31 @@
+site_name: 放薪管家-南京银行-部署文档
+dev_addr: 10.5.0.201:8081
+use_directory_urls: false
+nav:    
+    - 首页: 'index.md'
+    - 拓扑图: 
+        - '架构拓扑图': 'topological.md'
+        - '应用拓扑图': 'topological2.md'
+    - 部署清单:
+        - '软件': 'manifests/software.md'
+        - 'APP应用': 'manifests/app.md'
+        - '数据库信息': 'manifests/db.md'
+        - '数据库索引': 'manifests/indexes.md'
+        - 'SIT配置推荐': 'manifests/sit.md'
+        - '生产配置推荐': 'manifests/prod.md'
+    - 服务部署:
+        - 'SIT环境部署': 'service/sit.md'
+        - '生产环境部署':
+          - 'Consul集群': 'service/consul.md'
+          - 'MongoDB副本集分片集群': 'service/mongodb.md'
+          - 'RabbitMQ集群': 'service/rabbitmq.md'
+          - 'Redis主备': 'service/redis.md'
+          - 'MySQL集群': 'service/mysql.md'
+          - '双活热备软件': 'service/ha.md'
+          - '定时任务调度平台': 'service/dolphinscheduler.md'
+    - 服务调优:
+        - 'docker服务调优': 'tuning/docker.md'
+copyright: 北京开科唯识技术股份有限公司
+theme: 
+    name: material
+    language: zh

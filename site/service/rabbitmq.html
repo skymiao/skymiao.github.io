@@ -1,0 +1,963 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.2.8">
+    
+    
+      
+        <title>RabbitMQ集群 - 放薪管家-南京银行-部署文档</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.cb6bc1d0.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.39b8e14a.min.css">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+      
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#rabbitmq" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+  
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="../index.html" title="放薪管家-南京银行-部署文档" class="md-header-nav__button md-logo" aria-label="放薪管家-南京银行-部署文档">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      <div class="md-header-nav__ellipsis">
+        <div class="md-header-nav__topic">
+          <span class="md-ellipsis">
+            放薪管家-南京银行-部署文档
+          </span>
+        </div>
+        <div class="md-header-nav__topic">
+          <span class="md-ellipsis">
+            
+              RabbitMQ集群
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="放薪管家-南京银行-部署文档" class="md-nav__button md-logo" aria-label="放薪管家-南京银行-部署文档">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    放薪管家-南京银行-部署文档
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
+        首页
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" >
+      
+      <label class="md-nav__link" for="nav-2">
+        拓扑图
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="拓扑图" data-md-level="1">
+        <label class="md-nav__title" for="nav-2">
+          <span class="md-nav__icon md-icon"></span>
+          拓扑图
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../topological.html" class="md-nav__link">
+        架构拓扑图
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../topological2.html" class="md-nav__link">
+        应用拓扑图
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" >
+      
+      <label class="md-nav__link" for="nav-3">
+        部署清单
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="部署清单" data-md-level="1">
+        <label class="md-nav__title" for="nav-3">
+          <span class="md-nav__icon md-icon"></span>
+          部署清单
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../manifests/software.html" class="md-nav__link">
+        软件
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../manifests/app.html" class="md-nav__link">
+        APP应用
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../manifests/db.html" class="md-nav__link">
+        数据库信息
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../manifests/indexes.html" class="md-nav__link">
+        数据库索引
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../manifests/sit.html" class="md-nav__link">
+        SIT配置推荐
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../manifests/prod.html" class="md-nav__link">
+        生产配置推荐
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" checked>
+      
+      <label class="md-nav__link" for="nav-4">
+        服务部署
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="服务部署" data-md-level="1">
+        <label class="md-nav__title" for="nav-4">
+          <span class="md-nav__icon md-icon"></span>
+          服务部署
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="sit.html" class="md-nav__link">
+        SIT环境部署
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-2" type="checkbox" id="nav-4-2" checked>
+      
+      <label class="md-nav__link" for="nav-4-2">
+        生产环境部署
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="生产环境部署" data-md-level="2">
+        <label class="md-nav__title" for="nav-4-2">
+          <span class="md-nav__icon md-icon"></span>
+          生产环境部署
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="consul.html" class="md-nav__link">
+        Consul集群
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="mongodb.html" class="md-nav__link">
+        MongoDB副本集分片集群
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          RabbitMQ集群
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="rabbitmq.html" class="md-nav__link md-nav__link--active">
+        RabbitMQ集群
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    一、环境准备
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rabbitmq_1" class="md-nav__link">
+    二、RabbitMQ安装
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    三、启用管理控制台
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rabbitmq_2" class="md-nav__link">
+    四、RabbitMQ集群配置
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    四、安装延迟队列插件
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#haproxy" class="md-nav__link">
+    五、HAProxy配置
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="redis.html" class="md-nav__link">
+        Redis主备
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="mysql.html" class="md-nav__link">
+        MySQL集群
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ha.html" class="md-nav__link">
+        双活热备软件
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="dolphinscheduler.html" class="md-nav__link">
+        定时任务调度平台
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5" >
+      
+      <label class="md-nav__link" for="nav-5">
+        服务调优
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="服务调优" data-md-level="1">
+        <label class="md-nav__title" for="nav-5">
+          <span class="md-nav__icon md-icon"></span>
+          服务调优
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tuning/docker.html" class="md-nav__link">
+        docker服务调优
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    一、环境准备
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rabbitmq_1" class="md-nav__link">
+    二、RabbitMQ安装
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    三、启用管理控制台
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rabbitmq_2" class="md-nav__link">
+    四、RabbitMQ集群配置
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    四、安装延迟队列插件
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#haproxy" class="md-nav__link">
+    五、HAProxy配置
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="rabbitmq">RabbitMQ集群</h1>
+<h2 id="_1">一、环境准备</h2>
+<table>
+<thead>
+<tr>
+<th>软件</th>
+<th>版本</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CentOS</td>
+<td>7.9</td>
+</tr>
+<tr>
+<td>erlang</td>
+<td>v22.0</td>
+</tr>
+<tr>
+<td>rabbitmq</td>
+<td>v3.7.17</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>主机名</th>
+<th>IP</th>
+<th>组件</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>node1</td>
+<td>192.168.40.121</td>
+<td>rabbitmq</td>
+<td>主节点</td>
+</tr>
+<tr>
+<td>node2</td>
+<td>192.168.40.122</td>
+<td>rabbitmq</td>
+<td>从节点</td>
+</tr>
+<tr>
+<td>node3</td>
+<td>192.168.40.153</td>
+<td>rabbitmq</td>
+<td>从节点</td>
+</tr>
+</tbody>
+</table>
+<p>node1、node2、node为rabbitmq集群，其中node1作为主节点，node2、node3作为从节点，</p>
+<p>网络拓补图：
+<img alt="" src="../images/fxgj-nanjingbank-rabbitmq.png" /></p>
+<h2 id="rabbitmq_1">二、RabbitMQ安装</h2>
+<p>安装依赖包
+挂在镜像盘，然后从镜像盘里面安装这些依赖包</p>
+<pre><code>yum -y install make gcc gcc-c++ kernel-devel m4 ncurses-devel libxml2 libxslt openssl-devel unixODBC unixODBC-devel gtk2 fop gtk2-devel binutils-devel mesa-libGLU-devel
+</code></pre>
+<p>erlang源码安装</p>
+<pre><code>tar -xvf otp_src_22.0.tar.gz
+cd otp_src_22.0
+mkdir    /opt/erlang
+./configure --prefix=/opt/erlang
+make  &amp;&amp;  make  install
+</code></pre>
+<pre><code>tar  -xvf  rabbitmq-server-generic-unix-3.7.17.tar
+mv     rabbitmq_server-3.7.17       /opt
+</code></pre>
+<p>环境变量</p>
+<pre><code>cat  &gt;&gt;   ~/.bash_profile   &lt;&lt;  EOF
+export ERLANG_HOME=/opt/erlang
+export PATH=\${PATH}:\${ERLANG_HOME}/bin
+export RABBITMQ_HOME=/opt/rabbitmq_server-3.7.17
+export PATH=\${PATH}:\${RABBITMQ_HOME}/sbin
+EOF
+source  ~/.bash_profile
+</code></pre>
+<p>启动</p>
+<pre><code>rabbitmq-server  &amp;
+</code></pre>
+<h2 id="_2">三、启用管理控制台</h2>
+<p>设置guest可以远程连接，没有rabbitmq.config就新建</p>
+<pre><code>cat &gt;&gt;   /opt/rabbitmq_server-3.7.17/etc/rabbitmq/rabbitmq.config    &lt;&lt; EOF
+[{rabbit, [{loopback_users, []}]}].
+EOF
+</code></pre>
+<p>启用管理控制台</p>
+<pre><code>rabbitmq-plugins enable rabbitmq_management
+</code></pre>
+<p>重启 rabbitmq生效</p>
+<pre><code>rabbitmqctl stop
+rabbitmq-server &amp;
+</code></pre>
+<p>打开浏览器访问:http://192.168.40.121:15672，用户名guest，密码guest</p>
+<h2 id="rabbitmq_2">四、RabbitMQ集群配置</h2>
+<p>同步erlang.cookie文件
+RabbitMQ是依附于erlang进行通信，想要通信必须有相同的.erlang.cookie文件</p>
+<p>主节点
+- 192.168.40.121</p>
+<p>复制主节点的 ~/.erlang.cookie文件到其他slave节点，并覆盖</p>
+<pre><code>scp   ~/.erlang.cookie    root@192.168.40.122:~
+scp   ~/.erlang.cookie     root@192.168.40.153:~
+</code></pre>
+<p>停止mq服务</p>
+<pre><code>rabbitmqctl stop
+</code></pre>
+<p>启动集群</p>
+<pre><code>rabbitmq-server -datached  &amp;
+</code></pre>
+<p>从节点
+- 192.168.40.122和192.168.40.153</p>
+<p>.erlang.cookie文件被替换后，需要重新启动生效,这里需要注意，如果重新启动失败，可以kill掉所有和RabbitMQ相关的进程</p>
+<pre><code>rabbitmqctl stop
+rabbitmq-server &amp;
+</code></pre>
+<p>Slave加入集群
+HOSTS文件都配置3个的主机名IP映射</p>
+<pre><code>cat &gt;&gt;  /etc/hosts &lt;&lt; EOF
+192.168.40.121  node1
+192.168.40.122  node2
+192.168.40.153  node3
+EOF
+</code></pre>
+<p>rabbitmqctl stop_app停止rabbitmq应用，但不停止erlang,join_cluster后面要指定192.168.40.121的主机名</p>
+<pre><code>rabbitmqctl stop_app
+rabbitmqctl reset
+rabbitmqctl join_cluster rabbit@node1
+rabbitmqctl start_app
+</code></pre>
+<p>任意节点进行的查看集群状态</p>
+<pre><code>rabbitmqctl cluster_status
+</code></pre>
+<p>移除集群节点</p>
+<pre><code>rabbitmqctl forget_cluster_node rabbit@node2(具体节点)
+</code></pre>
+<p>修改集群名称</p>
+<pre><code>rabbitmqctl set_cluster_name rabbitmq_cluster1
+</code></pre>
+<p>设置镜像队列策略
+任意一个节点操作
+将所有队列设置为镜像队列，即队列会被复制到各个节点，各个节点状态一致。</p>
+<pre><code>rabbitmqctl set_policy ha-all &quot;^&quot; '{&quot;ha-mode&quot;:&quot;all&quot;}'
+</code></pre>
+<h2 id="_3">四、安装延迟队列插件</h2>
+<p>上传延迟队列插件</p>
+<pre><code>cp  rabbitmq_delayed_message_exchange-3.8.0.ez    /opt/rabbitmq_server-3.7.17/plugins/
+</code></pre>
+<p>开启插件：</p>
+<pre><code>rabbitmq-plugins enable rabbitmq_delayed_message_exchange
+</code></pre>
+<p>查询安装的所有插件：</p>
+<pre><code>rabbitmq-plugins list
+</code></pre>
+<p>看到这个查看rabbitmq_delayed_message_exchange 3.8.0表示安装成功</p>
+<p>重启生效</p>
+<pre><code>rabbitmqctl stop
+rabbitmq-server   &amp;
+</code></pre>
+<h2 id="haproxy">五、HAProxy配置</h2>
+<pre><code>cat  &gt;&gt;  /etc/haproxy/haproxy.cfg  &lt;&lt; EOF
+# listen：Frontend和Backend的组合体
+listen rabbitmq_cluster
+    # 定义监听地址和端口
+    bind 0.0.0.0:5672
+    # 配置 tcp 模式
+    mode tcp
+    # 简单的轮询
+    balance roundrobin
+    #check 后端健康检测
+    #inter 每隔五秒对mq集群做健康检查，2次正确证明服务器可用，
+    #2次失败证明服务器不可用，并且配置主备机制
+    server node1 192.168.40.121:5672 check inter 5000 rise 2 fall 2
+    server node2 192.168.40.122:5672 check inter 5000 rise 2 fall 2
+    server node3 192.168.40.153:5672 check inter 5000 rise 2 fall 2
+EOF
+</code></pre>
+<pre><code>systemctl  restart  haproxy
+</code></pre>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="mongodb.html" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  上一页
+                </span>
+                MongoDB副本集分片集群
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="redis.html" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  下一页
+                </span>
+                Redis主备
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            北京开科唯识技术股份有限公司
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/vendor.18f0862e.min.js"></script>
+      <script src="../assets/javascripts/bundle.994580cf.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.placeholder": "\u641c\u7d22", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      
+      <script>
+        app = initialize({
+          base: "..",
+          features: [],
+          search: Object.assign({
+            worker: "../assets/javascripts/worker/search.9c0e82ba.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+    
+  </body>
+</html>

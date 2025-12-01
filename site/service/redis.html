@@ -1,0 +1,1099 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.2.8">
+    
+    
+      
+        <title>Redis主备 - 放薪管家-南京银行-部署文档</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.cb6bc1d0.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.39b8e14a.min.css">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+      
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#redis" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+  
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="../index.html" title="放薪管家-南京银行-部署文档" class="md-header-nav__button md-logo" aria-label="放薪管家-南京银行-部署文档">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      <div class="md-header-nav__ellipsis">
+        <div class="md-header-nav__topic">
+          <span class="md-ellipsis">
+            放薪管家-南京银行-部署文档
+          </span>
+        </div>
+        <div class="md-header-nav__topic">
+          <span class="md-ellipsis">
+            
+              Redis主备
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="放薪管家-南京银行-部署文档" class="md-nav__button md-logo" aria-label="放薪管家-南京银行-部署文档">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    放薪管家-南京银行-部署文档
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
+        首页
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" >
+      
+      <label class="md-nav__link" for="nav-2">
+        拓扑图
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="拓扑图" data-md-level="1">
+        <label class="md-nav__title" for="nav-2">
+          <span class="md-nav__icon md-icon"></span>
+          拓扑图
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../topological.html" class="md-nav__link">
+        架构拓扑图
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../topological2.html" class="md-nav__link">
+        应用拓扑图
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" >
+      
+      <label class="md-nav__link" for="nav-3">
+        部署清单
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="部署清单" data-md-level="1">
+        <label class="md-nav__title" for="nav-3">
+          <span class="md-nav__icon md-icon"></span>
+          部署清单
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../manifests/software.html" class="md-nav__link">
+        软件
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../manifests/app.html" class="md-nav__link">
+        APP应用
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../manifests/db.html" class="md-nav__link">
+        数据库信息
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../manifests/indexes.html" class="md-nav__link">
+        数据库索引
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../manifests/sit.html" class="md-nav__link">
+        SIT配置推荐
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../manifests/prod.html" class="md-nav__link">
+        生产配置推荐
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" checked>
+      
+      <label class="md-nav__link" for="nav-4">
+        服务部署
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="服务部署" data-md-level="1">
+        <label class="md-nav__title" for="nav-4">
+          <span class="md-nav__icon md-icon"></span>
+          服务部署
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="sit.html" class="md-nav__link">
+        SIT环境部署
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-2" type="checkbox" id="nav-4-2" checked>
+      
+      <label class="md-nav__link" for="nav-4-2">
+        生产环境部署
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="生产环境部署" data-md-level="2">
+        <label class="md-nav__title" for="nav-4-2">
+          <span class="md-nav__icon md-icon"></span>
+          生产环境部署
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="consul.html" class="md-nav__link">
+        Consul集群
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="mongodb.html" class="md-nav__link">
+        MongoDB副本集分片集群
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="rabbitmq.html" class="md-nav__link">
+        RabbitMQ集群
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Redis主备
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="redis.html" class="md-nav__link md-nav__link--active">
+        Redis主备
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    一、环境规划
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    二、安装
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#redis_1" class="md-nav__link">
+    三、redis配置文件
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#redis_2" class="md-nav__link">
+    四、redis启动
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#keepalived" class="md-nav__link">
+    五、Keepalived
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    六、脚本
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="mysql.html" class="md-nav__link">
+        MySQL集群
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ha.html" class="md-nav__link">
+        双活热备软件
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="dolphinscheduler.html" class="md-nav__link">
+        定时任务调度平台
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5" >
+      
+      <label class="md-nav__link" for="nav-5">
+        服务调优
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="服务调优" data-md-level="1">
+        <label class="md-nav__title" for="nav-5">
+          <span class="md-nav__icon md-icon"></span>
+          服务调优
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tuning/docker.html" class="md-nav__link">
+        docker服务调优
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    一、环境规划
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    二、安装
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#redis_1" class="md-nav__link">
+    三、redis配置文件
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#redis_2" class="md-nav__link">
+    四、redis启动
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#keepalived" class="md-nav__link">
+    五、Keepalived
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    六、脚本
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="redis">redis主备高可用</h1>
+<h2 id="_1">一、环境规划</h2>
+<table>
+<thead>
+<tr>
+<th>软件</th>
+<th>版本</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>centos</td>
+<td>7.9</td>
+</tr>
+<tr>
+<td>redis</td>
+<td>v5.0.8</td>
+</tr>
+<tr>
+<td>keepalived</td>
+<td>vv1.3.5</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>ip</th>
+<th>角色</th>
+<th>组件</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>192.168.40.121</td>
+<td>主</td>
+<td>redis  keepalived</td>
+</tr>
+<tr>
+<td>192.168.40.122</td>
+<td>从</td>
+<td>redis  keepalived</td>
+</tr>
+<tr>
+<td>192.168.40.199</td>
+<td>VIP</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>网络拓扑图:
+<img alt="" src="../images/fxgj-nanjingbank-redis2.png" /></p>
+<h2 id="_2">二、安装</h2>
+<p>安装依赖</p>
+<pre><code>yum -y install gcc
+</code></pre>
+<p>编译安装</p>
+<pre><code>wget http://download.redis.io/releases/redis-5.0.8.tar.gz
+tar -xzvf redis-5.0.8.tar.gz
+mkdir  -p      /opt/redis
+cd   redis-5.0.8
+make CFLAGS=&quot;-march=x86-64&quot;     PREFIX=/opt/redis install
+</code></pre>
+<p>创建数据和日志目录</p>
+<pre><code>mkdir   -p    mkdir  -p  /opt/redis/{data,logs,etc}
+</code></pre>
+<p>配置环境变量</p>
+<pre><code>cat  &gt;&gt;    ~/.bash_profile  &lt;&lt; EOF
+export REDIS_HOME=/opt/redis
+export PATH=\$PATH:\$REDIS_HOME/bin
+EOF
+source  ~/.bash_profile
+</code></pre>
+<h2 id="redis_1">三、redis配置文件</h2>
+<p>主节点</p>
+<pre><code>cat   &gt;&gt;   /opt/redis/etc/redis.conf  &lt;&lt;  EOF
+daemonize yes
+bind 0.0.0.0
+port 6379
+pidfile /opt/redis/redis.pid
+dir /opt/redis/data/
+logfile /opt/redis/logs/redis.log
+dbfilename dump.rdb
+requirepass 123.com
+EOF
+</code></pre>
+<p>从节点</p>
+<pre><code>cat   &gt;&gt;   /opt/redis/etc/redis.conf  &lt;&lt;  EOF
+daemonize yes
+bind  0.0.0.0
+port 6379
+pidfile /opt/redis/redis.pid
+dir /opt/redis/data/
+logfile /opt/redis/logs/redis.log
+dbfilename dump.rdb
+# 绑定master的ip和port
+replicaof  192.168.40.121  6379
+# master的认证口令
+masterauth  123.com
+EOF
+</code></pre>
+<h2 id="redis_2">四、redis启动</h2>
+<pre><code>/opt/redis/bin/redis-server      /opt/redis/etc/redis.conf   &amp;
+</code></pre>
+<p>客户端连接</p>
+<pre><code>redis-cli   -h 192.168.40.121   -p  6379  -a 123.com
+</code></pre>
+<p>查看主从信息</p>
+<pre><code>192.168.40.121:6379&gt; info replication
+# Replication
+role:master
+connected_slaves:1
+slave0:ip=192.168.40.122,port=6379,state=online,offset=2874,lag=1
+
+</code></pre>
+<pre><code>192.168.40.122:6379&gt; info replication
+# Replication
+role:slave
+master_host:192.168.40.121
+master_port:6379
+master_link_status:up
+master_last_io_seconds_ago:10
+</code></pre>
+<h2 id="keepalived">五、Keepalived</h2>
+<p>主配置文件</p>
+<pre><code>vrrp_script chk_redis {
+    script &quot;/etc/keepalived/scripts/redis_check.sh&quot;
+}
+
+vrrp_instance VI_1 {
+    state MASTER
+    interface eth0
+    virtual_router_id 168
+    priority 100
+    advert_int 1
+    authentication {
+        auth_type PASS
+        auth_pass 1111
+    }
+
+    track_script {
+        chk_redis
+    }
+
+    virtual_ipaddress {
+        192.168.40.199
+    }
+     notify_master /etc/keepalived/scripts/redis_master.sh
+     notify_fault  /etc/keepalived/scripts/redis_fault.sh
+     notify_backup /etc/keepalived/scripts/redis_backup.sh
+     notify_stop  /etc/keepalived/scripts/redis_stop.sh
+
+}
+</code></pre>
+<p>从配置文件</p>
+<pre><code>vrrp_script chk_redis {
+    script &quot;/etc/keepalived/scripts/redis_check.sh&quot;
+}
+
+vrrp_instance VI_1 {
+    state BACKUP
+    interface eth0
+    virtual_router_id 168
+    priority 90
+    advert_int 1
+    authentication {
+        auth_type PASS
+        auth_pass 1111
+    }
+
+    track_script {
+        chk_redis
+    }
+
+    virtual_ipaddress {
+        192.168.40.199
+    }
+     notify_master /etc/keepalived/scripts/redis_master.sh
+     notify_backup /etc/keepalived/scripts/redis_backup.sh
+     notify_fault  /etc/keepalived/scripts/redis_fault.sh
+     notify_stop  /etc/keepalived/scripts/redis_stop.sh
+}
+</code></pre>
+<h2 id="_3">六、脚本</h2>
+<p>创建脚本目录</p>
+<pre><code>mkdir  -p  /etc/keepalived/scripts
+touch   /etc/keepalived/keepalived-redis-state.log
+</code></pre>
+<p>主节点脚本
+cat /etc/keepalived/scripts/redis_master.sh</p>
+<pre><code>#!/bin/bash
+
+REDISCLI=&quot;/opt/redis/bin/redis-cli -a 123.com&quot;
+LOGFILE=&quot;/etc/keepalived/keepalived-redis-state.log&quot;
+
+echo &quot;[master]&quot; &gt;&gt; $LOGFILE
+date &gt;&gt; $LOGFILE
+echo &quot;Being master....&quot; &gt;&gt; $LOGFILE 2&gt;&amp;1
+
+echo &quot;Run SLAVEOF cmd ...&quot; &gt;&gt; $LOGFILE
+
+$REDISCLI -p 6379  SLAVEOF 192.168.40.122 6379 &gt;&gt; $LOGFILE  2&gt;&amp;1
+sleep 10 #延迟10秒以后待数据同步完成后再取消同步状态
+
+echo &quot;Run SLAVEOF NO ONE cmd ...&quot; &gt;&gt; $LOGFILE
+$REDISCLI -p 6379 SLAVEOF NO ONE &gt;&gt; $LOGFILE 2&gt;&amp;1
+</code></pre>
+<p>cat  /etc/keepalived/scripts/redis_backup.sh</p>
+<pre><code>#!/bin/bash
+
+REDISCLI=&quot;/opt/redis/bin/redis-cli  -a 123.com&quot;
+LOGFILE=&quot;/etc/keepalived/keepalived-redis-state.log&quot;
+
+echo &quot;[backup]&quot; &gt;&gt; $LOGFILE
+date &gt;&gt; $LOGFILE
+echo &quot;Being slave....&quot; &gt;&gt; $LOGFILE 2&gt;&amp;1
+
+sleep 15 #延迟15秒待数据被对方同步完成之后再切换主从角色
+echo &quot;Run SLAVEOF cmd ...&quot; &gt;&gt; $LOGFILE
+$REDISCLI -p 6379  SLAVEOF 192.168.40.122 6379 &gt;&gt; $LOGFILE  2&gt;&amp;1
+</code></pre>
+<p>cat /etc/keepalived/scripts/redis_fault.sh</p>
+<pre><code>#!/bin/bash
+
+LOGFILE=&quot;/etc/keepalived/keepalived-redis-state.log&quot;
+
+echo &quot;[fault]&quot; &gt;&gt; $LOGFILE
+date &gt;&gt; $LOGFILE
+</code></pre>
+<p>cat  /etc/keepalived/scripts/redis_stop.sh</p>
+<pre><code>#!/bin/bash
+
+LOGFILE=&quot;/etc/keepalived/keepalived-redis-state.log&quot;
+
+echo &quot;[stop]&quot; &gt;&gt; $LOGFILE
+date &gt;&gt; $LOGFILE
+</code></pre>
+<p>cat  /etc/keepalived/scripts/redis_check.sh</p>
+<pre><code>#!/bin/bash
+
+ALIVE=$(/opt/redis/bin/redis-cli  -p 6379 -a 123.com  PING)
+LOGFILE=&quot;/etc/keepalived/keepalived-redis-state.log&quot;
+
+if [ $ALIVE = &quot;PONG&quot; ];then
+    echo $ALIVE
+    exit 0
+else
+    echo &quot;killall -9 keepalived&quot;
+    systemctl  stop keepalived
+    exit 1
+fi
+</code></pre>
+<pre><code>chmod   +x  /etc/keepalived/scripts/*.sh
+</code></pre>
+<p>从节点脚本
+cat /etc/keepalived/scripts/redis_master.sh</p>
+<pre><code>#!/bin/bash
+REDISCLI=&quot;/opt/redis/bin/redis-cli  -a 123.com&quot;
+LOGFILE=&quot;/etc/keepalived/keepalived-redis-state.log&quot;
+
+echo &quot;[master]&quot; &gt;&gt; $LOGFILE
+date &gt;&gt; $LOGFILE
+echo &quot;Being master....&quot; &gt;&gt; $LOGFILE 2&gt;&amp;1
+
+echo &quot;Run SLAVEOF cmd ...&quot; &gt;&gt; $LOGFILE
+$REDISCLI -p 6379 SLAVEOF 192.168.40.121 6379&gt;&gt; $LOGFILE  2&gt;&amp;1
+sleep 10 #延迟10秒以后待数据同步完成后再取消同步状态
+
+echo &quot;Run SLAVEOF NO ONE cmd ...&quot; &gt;&gt; $LOGFILE
+$REDISCLI -p 6380 SLAVEOF NO ONE &gt;&gt; $LOGFILE 2&gt;&amp;1
+</code></pre>
+<p>cat /etc/keepalived/scripts/redis_backup.sh</p>
+<pre><code>#!/bin/bash
+REDISCLI=&quot;/opt/redis/bin/redis-cli -a 123.com &quot;
+LOGFILE=&quot;/etc/keepalived/keepalived-redis-state.log&quot;
+
+echo &quot;[backup]&quot; &gt;&gt; $LOGFILE
+date &gt;&gt; $LOGFILE
+echo &quot;Being slave....&quot; &gt;&gt; $LOGFILE 2&gt;&amp;1
+
+sleep 15 #延迟15秒待数据被对方同步完成之后再切换主从角色
+echo &quot;Run SLAVEOF cmd ...&quot; &gt;&gt; $LOGFILE
+$REDISCLI -p 6379  SLAVEOF 192.168.40.121 6379 &gt;&gt; $LOGFILE  2&gt;&amp;1
+</code></pre>
+<p>cat  /etc/keepalived/scripts/redis_fault.sh</p>
+<pre><code>#!/bin/bash
+
+LOGFILE=&quot;/etc/keepalived/keepalived-redis-state.log&quot;
+
+echo &quot;[fault]&quot; &gt;&gt; $LOGFILE
+date &gt;&gt; $LOGFILE
+</code></pre>
+<p>cat  /etc/keepalived/scripts/redis_stop.sh</p>
+<pre><code>#!/bin/bash
+
+LOGFILE=&quot;/etc/keepalived/keepalived-redis-state.log&quot;
+
+echo &quot;[stop]&quot; &gt;&gt; $LOGFILE
+date &gt;&gt; $LOGFILE
+</code></pre>
+<p>cat  /etc/keepalived/scripts/redis_check.sh</p>
+<pre><code>#!/bin/bash
+
+ALIVE=$(/opt/redis/bin/redis-cli -p 6379   -a 123.com  PING)
+
+LOGFILE=&quot;/etc/keepalived/keepalived-redis-state.log&quot;
+
+if [ $ALIVE = &quot;PONG&quot; ];then
+        echo $ALIVE
+        exit 0
+else
+        echo &quot;killall -9 keepalived&quot;
+        systemctl stop keepalived
+        exit 1
+fi
+</code></pre>
+<pre><code>chmod   +x  /etc/keepalived/scripts/*.sh
+</code></pre>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="rabbitmq.html" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  上一页
+                </span>
+                RabbitMQ集群
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="mysql.html" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  下一页
+                </span>
+                MySQL集群
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            北京开科唯识技术股份有限公司
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/vendor.18f0862e.min.js"></script>
+      <script src="../assets/javascripts/bundle.994580cf.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.placeholder": "\u641c\u7d22", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      
+      <script>
+        app = initialize({
+          base: "..",
+          features: [],
+          search: Object.assign({
+            worker: "../assets/javascripts/worker/search.9c0e82ba.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+    
+  </body>
+</html>

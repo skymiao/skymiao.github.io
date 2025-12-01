@@ -1,0 +1,2094 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.2.8">
+    
+    
+      
+        <title>数据库索引 - 放薪管家-南京银行-部署文档</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.cb6bc1d0.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.39b8e14a.min.css">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+      
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#mysql" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+  
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="../index.html" title="放薪管家-南京银行-部署文档" class="md-header-nav__button md-logo" aria-label="放薪管家-南京银行-部署文档">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      <div class="md-header-nav__ellipsis">
+        <div class="md-header-nav__topic">
+          <span class="md-ellipsis">
+            放薪管家-南京银行-部署文档
+          </span>
+        </div>
+        <div class="md-header-nav__topic">
+          <span class="md-ellipsis">
+            
+              数据库索引
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="放薪管家-南京银行-部署文档" class="md-nav__button md-logo" aria-label="放薪管家-南京银行-部署文档">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    放薪管家-南京银行-部署文档
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
+        首页
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" >
+      
+      <label class="md-nav__link" for="nav-2">
+        拓扑图
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="拓扑图" data-md-level="1">
+        <label class="md-nav__title" for="nav-2">
+          <span class="md-nav__icon md-icon"></span>
+          拓扑图
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../topological.html" class="md-nav__link">
+        架构拓扑图
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../topological2.html" class="md-nav__link">
+        应用拓扑图
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
+      
+      <label class="md-nav__link" for="nav-3">
+        部署清单
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="部署清单" data-md-level="1">
+        <label class="md-nav__title" for="nav-3">
+          <span class="md-nav__icon md-icon"></span>
+          部署清单
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="software.html" class="md-nav__link">
+        软件
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="app.html" class="md-nav__link">
+        APP应用
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="db.html" class="md-nav__link">
+        数据库信息
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          数据库索引
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="indexes.html" class="md-nav__link md-nav__link--active">
+        数据库索引
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#mysql" class="md-nav__link">
+    MySQL数据库索引清单
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    放薪管家生产数据库与本地测试数据库索引差异部分
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mongodb" class="md-nav__link">
+    MongoDB数据库索引清单
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="sit.html" class="md-nav__link">
+        SIT配置推荐
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="prod.html" class="md-nav__link">
+        生产配置推荐
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" >
+      
+      <label class="md-nav__link" for="nav-4">
+        服务部署
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="服务部署" data-md-level="1">
+        <label class="md-nav__title" for="nav-4">
+          <span class="md-nav__icon md-icon"></span>
+          服务部署
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../service/sit.html" class="md-nav__link">
+        SIT环境部署
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-2" type="checkbox" id="nav-4-2" >
+      
+      <label class="md-nav__link" for="nav-4-2">
+        生产环境部署
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="生产环境部署" data-md-level="2">
+        <label class="md-nav__title" for="nav-4-2">
+          <span class="md-nav__icon md-icon"></span>
+          生产环境部署
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../service/consul.html" class="md-nav__link">
+        Consul集群
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../service/mongodb.html" class="md-nav__link">
+        MongoDB副本集分片集群
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../service/rabbitmq.html" class="md-nav__link">
+        RabbitMQ集群
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../service/redis.html" class="md-nav__link">
+        Redis主备
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../service/mysql.html" class="md-nav__link">
+        MySQL集群
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../service/ha.html" class="md-nav__link">
+        双活热备软件
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../service/dolphinscheduler.html" class="md-nav__link">
+        定时任务调度平台
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5" >
+      
+      <label class="md-nav__link" for="nav-5">
+        服务调优
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="服务调优" data-md-level="1">
+        <label class="md-nav__title" for="nav-5">
+          <span class="md-nav__icon md-icon"></span>
+          服务调优
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tuning/docker.html" class="md-nav__link">
+        docker服务调优
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#mysql" class="md-nav__link">
+    MySQL数据库索引清单
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    放薪管家生产数据库与本地测试数据库索引差异部分
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mongodb" class="md-nav__link">
+    MongoDB数据库索引清单
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                  <h1>数据库索引</h1>
+                
+                <h2 id="mysql">MySQL数据库索引清单</h2>
+<table>
+<thead>
+<tr>
+<th>表名</th>
+<th>索引名</th>
+<th>索引列</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>account_sign_info</td>
+<td>PRIMARY</td>
+<td>account</td>
+</tr>
+<tr>
+<td>account_sign_info_his</td>
+<td>PRIMARY</td>
+<td>account</td>
+</tr>
+<tr>
+<td>activity_flow_log</td>
+<td>FKqprjkcu3gs4hnqtlx3n5jpbx9</td>
+<td>activity_id</td>
+</tr>
+<tr>
+<td>activity_flow_log</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>activity_group</td>
+<td>FK33e1mme1o7p7kgt1ag6m7wtw4</td>
+<td>activity_id</td>
+</tr>
+<tr>
+<td>activity_group</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>activity_info</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>activity_info_answer</td>
+<td>FKhvxk9932qe221kufmf5g0tpt8</td>
+<td>activity_id</td>
+</tr>
+<tr>
+<td>activity_info_answer</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>activity_info_rain</td>
+<td>FKlsby7emocbn8pxu1ckcns6af1</td>
+<td>activity_id</td>
+</tr>
+<tr>
+<td>activity_info_rain</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>activity_info_random</td>
+<td>FKdqe0calo8o05y7ecwsoy5frdb</td>
+<td>activity_id</td>
+</tr>
+<tr>
+<td>activity_info_random</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>activity_prize</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>activity_trans_log</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>advertising_info</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>advertising_version_info</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>bank_account_flow_log</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>bank_branch_info</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>bank_branch_info_20200610</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>bank_business_info</td>
+<td>PRIMARY</td>
+<td>trans_no</td>
+</tr>
+<tr>
+<td>bank_business_info_his</td>
+<td>PRIMARY</td>
+<td>trans_no</td>
+</tr>
+<tr>
+<td>bank_cust_mark</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>bank_cust_product</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>bank_fetch_data</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>bank_product_cust</td>
+<td>FK11cb691rs6igyp5oo958fxqxb</td>
+<td>product_id</td>
+</tr>
+<tr>
+<td>bank_product_cust</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>bank_product_image</td>
+<td>FKog5f7rt63sk922oqo1j38kgrx</td>
+<td>product_id</td>
+</tr>
+<tr>
+<td>bank_product_image</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>bank_product_info</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>bank_product_intention</td>
+<td>FKnag7tnpwjwoasrf5y7ivktp5o</td>
+<td>product_id</td>
+</tr>
+<tr>
+<td>bank_product_intention</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>bank_product_mark</td>
+<td>FKhmtivpbpk5l4b0bkp6eu3snxs</td>
+<td>product_id</td>
+</tr>
+<tr>
+<td>bank_product_mark</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>bank_product_operate</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>bank_relation_info</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>bank_sp_detail</td>
+<td>PRIMARY</td>
+<td>detail_id</td>
+</tr>
+<tr>
+<td>bank_sp_detail_his</td>
+<td>PRIMARY</td>
+<td>detail_id</td>
+</tr>
+<tr>
+<td>bank_trans_info</td>
+<td>PRIMARY</td>
+<td>flw_no</td>
+</tr>
+<tr>
+<td>bank_trans_info_his</td>
+<td>PRIMARY</td>
+<td>flw_no</td>
+</tr>
+<tr>
+<td>cardbin_info</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>certificate_upload_log</td>
+<td>IDXfdttwes40aae3ha1ohchg8wig</td>
+<td>account_id</td>
+</tr>
+<tr>
+<td>certificate_upload_log</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>check_group_info</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>check_wage_info</td>
+<td>FKgxtct2b08ae2atcp3pcpqkenm</td>
+<td>sheet_id</td>
+</tr>
+<tr>
+<td>check_wage_info</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>check_wage_info_history</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>employee_card_bank</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>employee_card_info</td>
+<td>card_index</td>
+<td>del_status,card_no</td>
+</tr>
+<tr>
+<td>employee_card_info</td>
+<td>FKgfv65vhyjq1iule0yep367pu5</td>
+<td>employee_id</td>
+</tr>
+<tr>
+<td>employee_card_info</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>employee_info</td>
+<td>ent_id</td>
+<td>ent_id,id_number,group_id</td>
+</tr>
+<tr>
+<td>employee_info</td>
+<td>IDXlqd82vkraw27m1bbl30gyaa34</td>
+<td>group_id,id_number,ent_id</td>
+</tr>
+<tr>
+<td>employee_info</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>employee_info_phone</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>employee_upload_temp_card_info</td>
+<td>FK8oka8sufsk4m2rwdmtrlaxcu7</td>
+<td>employee_id</td>
+</tr>
+<tr>
+<td>employee_upload_temp_card_info</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>employee_upload_temp_info</td>
+<td>IDXjvl4anwp3ib5n09dfti35g3yg</td>
+<td>group_id,upload_status</td>
+</tr>
+<tr>
+<td>employee_upload_temp_info</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>employee_wage_info</td>
+<td>FK3iwhfdd3renn5b957cbbrk9uv</td>
+<td>employee_id</td>
+</tr>
+<tr>
+<td>employee_wage_info</td>
+<td>FKpr2yq1nyx79y6po6rofydml18</td>
+<td>wage_id</td>
+</tr>
+<tr>
+<td>employee_wechat_info</td>
+<td>IDXdm2qk5a3m8h9aquiyj3f8e7d4</td>
+<td>open_id</td>
+</tr>
+<tr>
+<td>employee_wechat_info</td>
+<td>IDXn19md93mggo9vhlpvfse9feg9</td>
+<td>id_number</td>
+</tr>
+<tr>
+<td>employee_wechat_info</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>enterprise_init_info</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>enterprise_statistics</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>enterprise_statistics</td>
+<td>UK_2chu1061xi113000rix4sdiqg</td>
+<td>sta_date</td>
+</tr>
+<tr>
+<td>enterprise_store_info</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>ent_account_info</td>
+<td>IDXfc9m5wy9x9r8b362hhdd44ptx</td>
+<td>ent_id</td>
+</tr>
+<tr>
+<td>ent_account_info</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>ent_account_info</td>
+<td>UK_3abhhbsvbeiu7lemo0h0wne5q</td>
+<td>account</td>
+</tr>
+<tr>
+<td>ent_account_limit_amt_log</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>ent_account_sign_log</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>ent_business_white_list</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>ent_erprise_info</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>ent_erprise_review_info</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>ent_group_account</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>ent_group_emp_unit</td>
+<td>IDXkqt9588duot8h3955a55pa0sv</td>
+<td>group_id</td>
+</tr>
+<tr>
+<td>ent_group_emp_unit</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>ent_group_emp_unit</td>
+<td>UK_kqt9588duot8h3955a55pa0sv</td>
+<td>group_id</td>
+</tr>
+<tr>
+<td>ent_group_info</td>
+<td>FKbv1ajl419n0slgdtl710yiib0</td>
+<td>group_invoice_id</td>
+</tr>
+<tr>
+<td>ent_group_info</td>
+<td>FKgh68m2myl7xe3tugcd3tv6hyf</td>
+<td>ent_id</td>
+</tr>
+<tr>
+<td>ent_group_info</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>ent_group_invoice_info</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>ent_group_project</td>
+<td>IDX368dw91ua6oyergve3fcmlhds</td>
+<td>group_id</td>
+</tr>
+<tr>
+<td>ent_group_project</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>ent_group_wage_head</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>ent_group_withdraw_limit</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>ent_industry_info</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>ent_none_manager</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>ent_project_employee</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>exportwechatinfo</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>export_emp_month_pay_info</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>export_hangzhou_info</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>export_wechat_info</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>export_yichun_info</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>ftp_upload_log</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>group_account_info</td>
+<td>FK2g5u89va4yb6gda4evbbwy9xi</td>
+<td>group_id</td>
+</tr>
+<tr>
+<td>group_account_info</td>
+<td>FKt1c5kubmnrvm9m590dhktcpv0</td>
+<td>account_id</td>
+</tr>
+<tr>
+<td>group_account_info_20200611</td>
+<td>FK2g5u89va4yb6gda4evbbwy9xi</td>
+<td>group_id</td>
+</tr>
+<tr>
+<td>group_account_info_20200611</td>
+<td>FKt1c5kubmnrvm9m590dhktcpv0</td>
+<td>account_id</td>
+</tr>
+<tr>
+<td>liquidation_version_advertising_info</td>
+<td>FKp2bel38jl8o59lya8i5vtclrw</td>
+<td>advertising_id</td>
+</tr>
+<tr>
+<td>liquidation_version_advertising_info</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>liquidation_version_notice_info</td>
+<td>FKdsxuopskdlw0vywcs3gu0ernk</td>
+<td>notice_id</td>
+</tr>
+<tr>
+<td>liquidation_version_notice_info</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>manager_chat_log</td>
+<td>FK2ydtw4li171kceeiro9q2ji80</td>
+<td>chat_session_id</td>
+</tr>
+<tr>
+<td>manager_chat_log</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>manager_chat_session</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>manager_info</td>
+<td>IDX5brvab45sr93t6nc8f17rshjw</td>
+<td>branch_org_no</td>
+</tr>
+<tr>
+<td>manager_info</td>
+<td>IDX6lbl4e6ec54gwasjvvy3c9vmi</td>
+<td>branch_no</td>
+</tr>
+<tr>
+<td>manager_info</td>
+<td>IDXmrixup68i7932bw5h67bprk85</td>
+<td>officer</td>
+</tr>
+<tr>
+<td>manager_info</td>
+<td>IDXn8q7tmxdxlb59c3xf77xrk0rp</td>
+<td>manager_name</td>
+</tr>
+<tr>
+<td>manager_info</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>manager_info_20200512</td>
+<td>IDX5brvab45sr93t6nc8f17rshjw</td>
+<td>branch_org_no</td>
+</tr>
+<tr>
+<td>manager_info_20200512</td>
+<td>IDX6lbl4e6ec54gwasjvvy3c9vmi</td>
+<td>branch_no</td>
+</tr>
+<tr>
+<td>manager_info_20200512</td>
+<td>IDXmrixup68i7932bw5h67bprk85</td>
+<td>officer</td>
+</tr>
+<tr>
+<td>manager_info_20200512</td>
+<td>IDXn8q7tmxdxlb59c3xf77xrk0rp</td>
+<td>manager_name</td>
+</tr>
+<tr>
+<td>manager_info_20200512</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>manager_info_202005211729</td>
+<td>IDX5brvab45sr93t6nc8f17rshjw</td>
+<td>branch_org_no</td>
+</tr>
+<tr>
+<td>manager_info_202005211729</td>
+<td>IDX6lbl4e6ec54gwasjvvy3c9vmi</td>
+<td>branch_no</td>
+</tr>
+<tr>
+<td>manager_info_202005211729</td>
+<td>IDXmrixup68i7932bw5h67bprk85</td>
+<td>officer</td>
+</tr>
+<tr>
+<td>manager_info_202005211729</td>
+<td>IDXn8q7tmxdxlb59c3xf77xrk0rp</td>
+<td>manager_name</td>
+</tr>
+<tr>
+<td>manager_info_202005211729</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>manager_info_202005211837</td>
+<td>IDX5brvab45sr93t6nc8f17rshjw</td>
+<td>branch_org_no</td>
+</tr>
+<tr>
+<td>manager_info_202005211837</td>
+<td>IDX6lbl4e6ec54gwasjvvy3c9vmi</td>
+<td>branch_no</td>
+</tr>
+<tr>
+<td>manager_info_202005211837</td>
+<td>IDXmrixup68i7932bw5h67bprk85</td>
+<td>officer</td>
+</tr>
+<tr>
+<td>manager_info_202005211837</td>
+<td>IDXn8q7tmxdxlb59c3xf77xrk0rp</td>
+<td>manager_name</td>
+</tr>
+<tr>
+<td>manager_info_202005211837</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>manager_info_20210113</td>
+<td>IDX5brvab45sr93t6nc8f17rshjw</td>
+<td>branch_org_no</td>
+</tr>
+<tr>
+<td>manager_info_20210113</td>
+<td>IDX6lbl4e6ec54gwasjvvy3c9vmi</td>
+<td>branch_no</td>
+</tr>
+<tr>
+<td>manager_info_20210113</td>
+<td>IDXmrixup68i7932bw5h67bprk85</td>
+<td>officer</td>
+</tr>
+<tr>
+<td>manager_info_20210113</td>
+<td>IDXn8q7tmxdxlb59c3xf77xrk0rp</td>
+<td>manager_name</td>
+</tr>
+<tr>
+<td>manager_info_20210113</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>msg_code_log</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>msg_model_info</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>msg_warn_info</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>notice_info</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>notice_version_info</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>other_elife_user_wechat</td>
+<td>IDXok2leovb3iatoqxbfx848qscg</td>
+<td>open_id</td>
+</tr>
+<tr>
+<td>other_elife_user_wechat</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>other_elife_wechat</td>
+<td>IDXfmx6ft5kyxpja7p5k0jwnny7w</td>
+<td>open_id</td>
+</tr>
+<tr>
+<td>other_elife_wechat</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>search_keyword_log</td>
+<td>IDX6kydbc8mdh686ae4cqb03524a</td>
+<td>channel_id,keyword</td>
+</tr>
+<tr>
+<td>search_keyword_log</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>send_push_records</td>
+<td>IDXsrf5ob8ggjaumu243tbh0c41e</td>
+<td>wage_sheet_id</td>
+</tr>
+<tr>
+<td>send_push_records</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>static_ent_amount</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>static_ent_info</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>system_authority_info</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>sys_param</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>sys_sequence</td>
+<td>PRIMARY</td>
+<td>seq_code</td>
+</tr>
+<tr>
+<td>sys_server_info</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>user_authority_info</td>
+<td>FKl5bgiiq7g0q3sa7m68xvcio2m</td>
+<td>user_id</td>
+</tr>
+<tr>
+<td>user_authority_info</td>
+<td>FKm89uviouqfj96yvjkq1ukkgru</td>
+<td>authority_id</td>
+</tr>
+<tr>
+<td>user_group_info</td>
+<td>FKao3u8754r6aevvsb0w6alwc46</td>
+<td>group_id</td>
+</tr>
+<tr>
+<td>user_group_info</td>
+<td>FKodxoypp43jg72kgkt5cg9bn72</td>
+<td>user_id</td>
+</tr>
+<tr>
+<td>user_info</td>
+<td>FK2hi7y8n8i8672p2yurt3w7t14</td>
+<td>ent_id</td>
+</tr>
+<tr>
+<td>user_info</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>user_read_notice_info</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>user_session_log</td>
+<td>IDXbpb7x7nqf473y0s46mdt04lns</td>
+<td>user_id</td>
+</tr>
+<tr>
+<td>user_session_log</td>
+<td>IDXrhtxxe4e813970r4m2k88ql0e</td>
+<td>jsession_id</td>
+</tr>
+<tr>
+<td>user_session_log</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>virtual_account</td>
+<td>IDXjklkh6rew1p8b7nbow6fxugru</td>
+<td>account_name</td>
+</tr>
+<tr>
+<td>virtual_account</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>virtual_account_connect_info</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>virtual_account_flow_log</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>virtual_unit_account</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>wage_detail_info</td>
+<td>channel_trans_no</td>
+<td>channel_trans_no</td>
+</tr>
+<tr>
+<td>wage_detail_info</td>
+<td>employee_sid</td>
+<td>employee_sid,group_id,ent_id</td>
+</tr>
+<tr>
+<td>wage_detail_info</td>
+<td>FKsdixh5ok2wvatmhugfi1ruc59</td>
+<td>wage_sheet_id</td>
+</tr>
+<tr>
+<td>wage_detail_info</td>
+<td>IDXgrryt848xh615xhg12kpaf1q5</td>
+<td>ent_id,employee_sid,group_id,is_count_status</td>
+</tr>
+<tr>
+<td>wage_detail_info</td>
+<td>id_number</td>
+<td>id_number,wage_sheet_id</td>
+</tr>
+<tr>
+<td>wage_detail_info</td>
+<td>index_one</td>
+<td>id_number,ent_id,group_id</td>
+</tr>
+<tr>
+<td>wage_detail_info</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>wage_detail_info_history</td>
+<td>count</td>
+<td>group_id,is_count_status,employee_sid,ent_id</td>
+</tr>
+<tr>
+<td>wage_detail_info_history</td>
+<td>employee_sid</td>
+<td>employee_sid,group_id,ent_id</td>
+</tr>
+<tr>
+<td>wage_detail_info_history</td>
+<td>id_number</td>
+<td>wage_sheet_id,id_number</td>
+</tr>
+<tr>
+<td>wage_detail_info_history</td>
+<td>index_one</td>
+<td>group_id,id_number,ent_id</td>
+</tr>
+<tr>
+<td>wage_detail_info_history</td>
+<td>index_two</td>
+<td>ent_id,group_id,push_status</td>
+</tr>
+<tr>
+<td>wage_detail_info_history</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>wage_detail_info_history</td>
+<td>wage_sheet_id</td>
+<td>wage_sheet_id</td>
+</tr>
+<tr>
+<td>wage_file_transfer</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>wage_fund_type_info</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>wage_interval_info</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>wage_merchant_detail_info</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>wage_merchant_info</td>
+<td>PRIMARY</td>
+<td>flw_no</td>
+</tr>
+<tr>
+<td>wage_nxy_pay_batch_detail</td>
+<td>FKb2xt64ul7o13v5aa9f4lupgpv</td>
+<td>pay_batch_id</td>
+</tr>
+<tr>
+<td>wage_nxy_pay_batch_detail</td>
+<td>FKbp6ud6deok82xtn1omkqm635f</td>
+<td>wage_detail_id</td>
+</tr>
+<tr>
+<td>wage_nxy_pay_batch_detail</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>wage_nxy_pay_batch_detail_20200521</td>
+<td>FKb2xt64ul7o13v5aa9f4lupgpv</td>
+<td>pay_batch_id</td>
+</tr>
+<tr>
+<td>wage_nxy_pay_batch_detail_20200521</td>
+<td>FKbp6ud6deok82xtn1omkqm635f</td>
+<td>wage_detail_id</td>
+</tr>
+<tr>
+<td>wage_nxy_pay_batch_detail_20200521</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>wage_nxy_pay_batch_info</td>
+<td>FKl23npfoe01xi2h2qichug6k7q</td>
+<td>wage_sheet_id</td>
+</tr>
+<tr>
+<td>wage_nxy_pay_batch_info</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>wage_nxy_pay_batch_info_20200521</td>
+<td>FKl23npfoe01xi2h2qichug6k7q</td>
+<td>wage_sheet_id</td>
+</tr>
+<tr>
+<td>wage_nxy_pay_batch_info_20200521</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>wage_operate_log</td>
+<td>FKfiyv41xvit8maqogd97t20nrl</td>
+<td>account_id</td>
+</tr>
+<tr>
+<td>wage_operate_log</td>
+<td>FKiux3c6jrwkp67f1xstxluevxn</td>
+<td>wage_sheet_id</td>
+</tr>
+<tr>
+<td>wage_operate_log</td>
+<td>FKtjwc4equgjuqkb6bvao4cm5yl</td>
+<td>user_id</td>
+</tr>
+<tr>
+<td>wage_operate_log</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>wage_operate_log_history</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>wage_pay_batch_detail</td>
+<td>FK3m884j0e45hqkf3n6pydaumv6</td>
+<td>wage_detail_id</td>
+</tr>
+<tr>
+<td>wage_pay_batch_detail</td>
+<td>FKdapmpdkepukc1c9aslop1frv4</td>
+<td>pay_batch_id</td>
+</tr>
+<tr>
+<td>wage_pay_batch_detail</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>wage_pay_batch_detail_20200521</td>
+<td>FK3m884j0e45hqkf3n6pydaumv6</td>
+<td>wage_detail_id</td>
+</tr>
+<tr>
+<td>wage_pay_batch_detail_20200521</td>
+<td>FKdapmpdkepukc1c9aslop1frv4</td>
+<td>pay_batch_id</td>
+</tr>
+<tr>
+<td>wage_pay_batch_detail_20200521</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>wage_pay_batch_detail_history</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>wage_pay_batch_info</td>
+<td>FKtl374otnw8ud741vpfjebsgul</td>
+<td>wage_sheet_id</td>
+</tr>
+<tr>
+<td>wage_pay_batch_info</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>wage_pay_batch_info_20200521</td>
+<td>FKtl374otnw8ud741vpfjebsgul</td>
+<td>wage_sheet_id</td>
+</tr>
+<tr>
+<td>wage_pay_batch_info_20200521</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>wage_pay_batch_info_history</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>wage_receipt_msg</td>
+<td>FKqm5k69gsbo4j6gup62wxd59cj</td>
+<td>wage_detail_id</td>
+</tr>
+<tr>
+<td>wage_receipt_msg</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>wage_receipt_msg_history</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>wage_sheet_info</td>
+<td>FK8w5n056wa7yuhv3pk605xefb4</td>
+<td>account_id</td>
+</tr>
+<tr>
+<td>wage_sheet_info</td>
+<td>FKdv0s9f5gdvxv9c1it8f943wrr</td>
+<td>upload_id</td>
+</tr>
+<tr>
+<td>wage_sheet_info</td>
+<td>index1</td>
+<td>ent_id,wage_status,group_id</td>
+</tr>
+<tr>
+<td>wage_sheet_info</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>wage_sheet_info_history</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>wage_show_info</td>
+<td>FKb3s8uifutyqgvnwgpnekke6hp</td>
+<td>wage_sheet_id</td>
+</tr>
+<tr>
+<td>wage_show_info</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>wage_show_info_history</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>wage_upload_info</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>wage_wechat_push</td>
+<td>index_detail</td>
+<td>detail_id</td>
+</tr>
+<tr>
+<td>wage_wechat_push</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>wage_wechat_sheet</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>wechat_follow_info</td>
+<td>IDXhrr1ppx3vsuk7792tgw1kumeo</td>
+<td>open_id</td>
+</tr>
+<tr>
+<td>wechat_follow_info</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>welfare_activity_charge_log</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>welfare_activity_info</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>welfare_activity_type_info</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>welfare_charge_operate_log</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>will_cust_info</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_1">放薪管家生产数据库与本地测试数据库索引差异部分</h2>
+<table>
+<thead>
+<tr>
+<th>表名</th>
+<th>索引名</th>
+<th>索引列</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>bank_relation_info</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>employee_card_info</td>
+<td>card_index</td>
+<td>del_status,card_no</td>
+</tr>
+<tr>
+<td>employee_info</td>
+<td>ent_id</td>
+<td>ent_id,id_number,group_id</td>
+</tr>
+<tr>
+<td>enterprise_statistics</td>
+<td>UK_2chu1061xi113000rix4sdiqg</td>
+<td>sta_date</td>
+</tr>
+<tr>
+<td>export_hangzhou_info</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>exportwechatinfo</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>liquidation_version_advertising_info</td>
+<td>FKp2bel38jl8o59lya8i5vtclrw</td>
+<td>advertising_id</td>
+</tr>
+<tr>
+<td>liquidation_version_advertising_info</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>liquidation_version_notice_info</td>
+<td>FKdsxuopskdlw0vywcs3gu0ernk</td>
+<td>notice_id</td>
+</tr>
+<tr>
+<td>liquidation_version_notice_info</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>notice_info</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>search_keyword_log</td>
+<td>IDX6kydbc8mdh686ae4cqb03524a</td>
+<td>channel_id,keyword</td>
+</tr>
+<tr>
+<td>static_ent_amount</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>static_ent_info</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+<tr>
+<td>wage_detail_info</td>
+<td>employee_sid</td>
+<td>employee_sid,group_id,ent_id</td>
+</tr>
+<tr>
+<td>wage_detail_info_history</td>
+<td>count</td>
+<td>is_count_status,group_id,ent_id,employee_sid</td>
+</tr>
+<tr>
+<td>wage_detail_info_history</td>
+<td>employee_sid</td>
+<td>employee_sid,group_id,ent_id</td>
+</tr>
+<tr>
+<td>wage_detail_info_history</td>
+<td>id_number</td>
+<td>wage_sheet_id,id_number</td>
+</tr>
+<tr>
+<td>wage_detail_info_history</td>
+<td>index_one</td>
+<td>group_id,ent_id,id_number</td>
+</tr>
+<tr>
+<td>wage_detail_info_history</td>
+<td>index_two</td>
+<td>group_id,ent_id,push_status</td>
+</tr>
+<tr>
+<td>wage_detail_info_history</td>
+<td>wage_sheet_id</td>
+<td>wage_sheet_id</td>
+</tr>
+<tr>
+<td>wage_detail_info</td>
+<td>id_number</td>
+<td>id_number,wage_sheet_id</td>
+</tr>
+<tr>
+<td>wage_detail_info</td>
+<td>IDXgrryt848xh615xhg12kpaf1q5</td>
+<td>ent_id,is_count_status,group_id,employee_sid</td>
+</tr>
+<tr>
+<td>wage_detail_info</td>
+<td>index_one</td>
+<td>ent_id,id_number,group_id</td>
+</tr>
+<tr>
+<td>wage_sheet_info</td>
+<td>index1</td>
+<td>group_id,ent_id,wage_status</td>
+</tr>
+<tr>
+<td>wage_wechat_push</td>
+<td>index_detail</td>
+<td>detail_id</td>
+</tr>
+<tr>
+<td>wage_wechat_push</td>
+<td>PRIMARY</td>
+<td>id</td>
+</tr>
+</tbody>
+</table>
+<h2 id="mongodb">MongoDB数据库索引清单</h2>
+<table>
+<thead>
+<tr>
+<th>集合</th>
+<th>索引名</th>
+<th>索引列</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>employee_card_info</td>
+<td>cardNo</td>
+<td>cardNo</td>
+</tr>
+<tr>
+<td>wage_detail_info</td>
+<td>crtDateTime</td>
+<td>crtDateTime</td>
+</tr>
+<tr>
+<td>wage_detail_info</td>
+<td>entId</td>
+<td>entId</td>
+</tr>
+</tbody>
+</table>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="db.html" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  上一页
+                </span>
+                数据库信息
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="sit.html" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  下一页
+                </span>
+                SIT配置推荐
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            北京开科唯识技术股份有限公司
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/vendor.18f0862e.min.js"></script>
+      <script src="../assets/javascripts/bundle.994580cf.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.placeholder": "\u641c\u7d22", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      
+      <script>
+        app = initialize({
+          base: "..",
+          features: [],
+          search: Object.assign({
+            worker: "../assets/javascripts/worker/search.9c0e82ba.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+    
+  </body>
+</html>

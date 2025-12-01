@@ -1,0 +1,1341 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.2.8">
+    
+    
+      
+        <title>SIT环境部署 - 放薪管家-南京银行-部署文档</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.cb6bc1d0.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.39b8e14a.min.css">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+      
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#sit" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+  
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="../index.html" title="放薪管家-南京银行-部署文档" class="md-header-nav__button md-logo" aria-label="放薪管家-南京银行-部署文档">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      <div class="md-header-nav__ellipsis">
+        <div class="md-header-nav__topic">
+          <span class="md-ellipsis">
+            放薪管家-南京银行-部署文档
+          </span>
+        </div>
+        <div class="md-header-nav__topic">
+          <span class="md-ellipsis">
+            
+              SIT环境部署
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="放薪管家-南京银行-部署文档" class="md-nav__button md-logo" aria-label="放薪管家-南京银行-部署文档">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    放薪管家-南京银行-部署文档
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
+        首页
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" >
+      
+      <label class="md-nav__link" for="nav-2">
+        拓扑图
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="拓扑图" data-md-level="1">
+        <label class="md-nav__title" for="nav-2">
+          <span class="md-nav__icon md-icon"></span>
+          拓扑图
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../topological.html" class="md-nav__link">
+        架构拓扑图
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../topological2.html" class="md-nav__link">
+        应用拓扑图
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" >
+      
+      <label class="md-nav__link" for="nav-3">
+        部署清单
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="部署清单" data-md-level="1">
+        <label class="md-nav__title" for="nav-3">
+          <span class="md-nav__icon md-icon"></span>
+          部署清单
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../manifests/software.html" class="md-nav__link">
+        软件
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../manifests/app.html" class="md-nav__link">
+        APP应用
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../manifests/db.html" class="md-nav__link">
+        数据库信息
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../manifests/indexes.html" class="md-nav__link">
+        数据库索引
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../manifests/sit.html" class="md-nav__link">
+        SIT配置推荐
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../manifests/prod.html" class="md-nav__link">
+        生产配置推荐
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" checked>
+      
+      <label class="md-nav__link" for="nav-4">
+        服务部署
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="服务部署" data-md-level="1">
+        <label class="md-nav__title" for="nav-4">
+          <span class="md-nav__icon md-icon"></span>
+          服务部署
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          SIT环境部署
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="sit.html" class="md-nav__link md-nav__link--active">
+        SIT环境部署
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#consul" class="md-nav__link">
+    一、Consul注册中心服务
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rabbitmq" class="md-nav__link">
+    二、Rabbitmq消息队列服务
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mongodb" class="md-nav__link">
+    三、Mongodb数据库
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#redis" class="md-nav__link">
+    四、Redis缓存服务
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mysql" class="md-nav__link">
+    五、Mysql数据库
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker" class="md-nav__link">
+    六、Docker容器服务
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker_1" class="md-nav__link">
+    七、Docker容器管理
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tftp" class="md-nav__link">
+    八、TFTP文件服务脚本
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    九、数据库信息
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#python" class="md-nav__link">
+    十、放薪经理同步python脚本定时任务
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    十一、员工信息同步
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-2" type="checkbox" id="nav-4-2" >
+      
+      <label class="md-nav__link" for="nav-4-2">
+        生产环境部署
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="生产环境部署" data-md-level="2">
+        <label class="md-nav__title" for="nav-4-2">
+          <span class="md-nav__icon md-icon"></span>
+          生产环境部署
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="consul.html" class="md-nav__link">
+        Consul集群
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="mongodb.html" class="md-nav__link">
+        MongoDB副本集分片集群
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="rabbitmq.html" class="md-nav__link">
+        RabbitMQ集群
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="redis.html" class="md-nav__link">
+        Redis主备
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="mysql.html" class="md-nav__link">
+        MySQL集群
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ha.html" class="md-nav__link">
+        双活热备软件
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="dolphinscheduler.html" class="md-nav__link">
+        定时任务调度平台
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5" >
+      
+      <label class="md-nav__link" for="nav-5">
+        服务调优
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="服务调优" data-md-level="1">
+        <label class="md-nav__title" for="nav-5">
+          <span class="md-nav__icon md-icon"></span>
+          服务调优
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tuning/docker.html" class="md-nav__link">
+        docker服务调优
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#consul" class="md-nav__link">
+    一、Consul注册中心服务
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rabbitmq" class="md-nav__link">
+    二、Rabbitmq消息队列服务
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mongodb" class="md-nav__link">
+    三、Mongodb数据库
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#redis" class="md-nav__link">
+    四、Redis缓存服务
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mysql" class="md-nav__link">
+    五、Mysql数据库
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker" class="md-nav__link">
+    六、Docker容器服务
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker_1" class="md-nav__link">
+    七、Docker容器管理
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tftp" class="md-nav__link">
+    八、TFTP文件服务脚本
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    九、数据库信息
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#python" class="md-nav__link">
+    十、放薪经理同步python脚本定时任务
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    十一、员工信息同步
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="sit">SIT环境服务安装</h1>
+<h2 id="consul">一、Consul注册中心服务</h2>
+<p>下载与解压</p>
+<pre><code>wget  --no-check-certificate  https://releases.hashicorp.com/consul/1.9.3/consul_1.9.3_linux_amd64.zip
+unzip  consul_1.9.3_linux_amd64.zip
+</code></pre>
+<p>创建数据和日志相关目录</p>
+<pre><code>mkdir  -p /opt/consul/{bin,conf,data,log}
+mv   consul   /opt/consul/bin
+</code></pre>
+<p>配置环境变量</p>
+<pre><code>cat  &gt;&gt;  /etc/profile  &lt;&lt;  EOF
+export CONSUL_HOME=/opt/consul
+export PATH=\${PATH}:\${CONSUL_HOME}/bin
+EOF
+source /etc/profile
+</code></pre>
+<p>consul配置文件</p>
+<pre><code>cat  &gt;&gt;   /opt/consul/conf/server.json    &lt;&lt; EOF
+{
+ &quot;bind_addr&quot;: &quot;0.0.0.0&quot;,
+ &quot;client_addr&quot;: &quot;0.0.0.0&quot;,
+ &quot;data_dir&quot;: &quot;/opt/consul/data&quot;,
+ &quot;log_level&quot;: &quot;INFO&quot;,
+ &quot;log_file&quot;: &quot;/opt/consul/log/consul.log&quot;,
+ &quot;log_rotate_duration&quot;: &quot;24h&quot;,
+ &quot;node_name&quot;: &quot;192.168.40.121&quot;,
+ &quot;server&quot;: true,
+ &quot;ui&quot;: true,
+ &quot;bootstrap_expect&quot;: 1,
+}
+EOF
+</code></pre>
+<p>consul启动</p>
+<pre><code>consul   agent   -config-dir=/opt/consul/conf    &amp;
+</code></pre>
+<p>查看consul成员信息</p>
+<pre><code>consul  members
+</code></pre>
+<p>consul 运行状态信息</p>
+<pre><code>consul info
+</code></pre>
+<h2 id="rabbitmq">二、Rabbitmq消息队列服务</h2>
+<p>安装依赖包</p>
+<pre><code>yum -y install make gcc gcc-c++ kernel-devel m4 ncurses-devel libxml2-utils libxml2 libxslt openssl-devel unixODBC unixODBC-devel unixODBC-bin gtk2 fop gtk2-devel binutils-devel mesa-libGLU-devel
+</code></pre>
+<p>erlang源码编译</p>
+<pre><code>tar -xvf otp_src_20.1.tar.gz
+mkdir   /opt/erlang
+cd otp_src_20.1
+./configure --prefix=/opt/erlang
+make  &amp;&amp;  make  install
+</code></pre>
+<p>rabbitmq下载与解压</p>
+<pre><code>tar  -xvf  rabbitmq-server-generic-unix-3.7.17.tar
+mv     rabbitmq_server-3.7.17   /opt
+</code></pre>
+<p>配置环境变量</p>
+<pre><code>cat  &gt;&gt;   ~/.bash_profile   &lt;&lt;  EOF
+export ERLANG_HOME=/opt/erlang
+export PATH=\${PATH}:\${ERLANG_HOME}/bin
+export RABBITMQ_HOME=/opt/rabbitmq_server-3.7.17
+export PATH=\${PATH}:\${RABBITMQ_HOME}/sbin
+EOF
+source  ~/.bash_profile
+</code></pre>
+<p>启动Rabbitmq</p>
+<pre><code>rabbitmq-server  &amp;
+</code></pre>
+<p>开启Rabbitmq管理控制台</p>
+<pre><code>cat   &gt;&gt;    /opt/rabbitmq_server-3.7.17/etc/rabbitmq/rabbitmq.config  &lt;&lt; EOF
+[{rabbit, [{loopback_users, []}]}].
+EOF
+</code></pre>
+<p>启用管理控制台</p>
+<pre><code>rabbitmq-plugins enable rabbitmq_management
+</code></pre>
+<p>重启 rabbitmq 是配置生效</p>
+<pre><code>rabbitmqctl stop
+rabbitmq-server &amp;
+</code></pre>
+<p>打开浏览器访问:http://192.168.40.121:15672，用户名guest，密码guest</p>
+<p>安装延迟队列插件
+上传延迟队列插件</p>
+<pre><code>cp  rabbitmq_delayed_message_exchange-3.8.0.ez    /opt/rabbitmq_server-3.7.17/plugins/
+</code></pre>
+<p>开启插件：</p>
+<pre><code>rabbitmq-plugins enable rabbitmq_delayed_message_exchange
+</code></pre>
+<p>查询安装的所有插件：</p>
+<pre><code>rabbitmq-plugins list
+</code></pre>
+<p>看到这个查看rabbitmq_delayed_message_exchange 3.8.0表示安装成功</p>
+<p>重启使延迟队列插件生效</p>
+<pre><code>rabbitmqctl stop
+rabbitmq-server   &amp;
+</code></pre>
+<h2 id="mongodb">三、Mongodb数据库</h2>
+<p>mongodb安装</p>
+<pre><code>wget    --no-check-certificate   https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-rhel70-4.4.4.tgz
+tar  -xzvf  mongodb-linux-x86_64-rhel70-4.4.4.tgz   -C  /opt/
+cd /opt
+mv  mongodb-linux-x86_64-rhel70-4.4.4   mongodb
+</code></pre>
+<p>创建数据和日志目录</p>
+<pre><code>mkdir  -p /opt/mongodb/{conf,data,log}
+</code></pre>
+<p>配置环境变量</p>
+<pre><code>cat  &gt;&gt;  ~/.bash_profile   &lt;&lt; EOF
+export  MONGODB_HOME=/opt/mongodb
+export  PATH=\${PATH}:\${MONGODB_HOME}/bin
+EOF
+source ~/.bash_profile
+</code></pre>
+<p>mongod配置文件</p>
+<pre><code>cat   &gt;&gt;  /opt/mongodb/conf/config.conf   &lt;&lt;  EOF
+systemLog:
+  destination: file
+  logAppend: true
+  path: /opt/mongodb/log/mongodb.log
+storage:
+  dbPath: /opt/mongodb/data/
+  journal:
+    enabled: true
+processManagement:
+  fork: true
+net:
+  port: 27017
+  bindIp: 0.0.0.0
+EOF
+</code></pre>
+<p>启动</p>
+<pre><code>/opt/mongodb/bin/mongod   -f    /opt/mongodb/conf/config.conf
+</code></pre>
+<p>连接客户端</p>
+<pre><code>mongo  127.0.0.1:27017
+</code></pre>
+<h2 id="redis">四、Redis缓存服务</h2>
+<p>安装依赖</p>
+<pre><code>yum -y install gcc
+</code></pre>
+<p>编译安装</p>
+<pre><code>wget http://download.redis.io/releases/redis-5.0.8.tar.gz
+tar -xzvf redis-5.0.8.tar.gz
+mkdir  -p      /opt/redis
+cd   redis-5.0.8
+make CFLAGS=&quot;-march=x86-64&quot;     PREFIX=/opt/redis install
+</code></pre>
+<p>创建数据和日志目录</p>
+<pre><code>mkdir   -p    mkdir  -p  /opt/redis/{data,logs,etc}
+</code></pre>
+<p>配置环境变量</p>
+<pre><code>cat  &gt;&gt;    ~/.bash_profile  &lt;&lt; EOF
+export REDIS_HOME=/opt/redis
+export PATH=\$PATH:\$REDIS_HOME/bin
+EOF
+source  ~/.bash_profile
+</code></pre>
+<p>redis配置文件</p>
+<pre><code>cat   &gt;&gt;   /opt/redis/etc/redis.conf  &lt;&lt;  EOF
+daemonize yes
+bind 0.0.0.0
+port 6379
+pidfile /opt/redis/redis.pid
+dir /opt/redis/data/
+logfile /opt/redis/logs/redis.log
+dbfilename dump.rdb
+EOF
+</code></pre>
+<p>redis启动</p>
+<pre><code>/opt/redis/bin/redis-server       /opt/redis/etc/redis.conf   &amp;
+</code></pre>
+<p>客户端连接</p>
+<pre><code>redis-cli   -h 127.0.0.1   -p  6379
+</code></pre>
+<p>初始化Redis密码：</p>
+<p>在配置文件中有个参数： requirepass  这个就是配置redis访问密码的参数；</p>
+<p>比如 requirepass test123；</p>
+<p>（Ps:需重启Redis才能生效）</p>
+<p>redis的查询速度是非常快的，外部用户一秒内可以尝试多大150K个密码；所以密码要尽量长（对于DBA 没有必要必须记住密码）；</p>
+<p>不重启Redis设置密码：</p>
+<p>在配置文件中配置requirepass的密码（当redis重启时密码依然有效）。</p>
+<p>redis 127.0.0.1:6379&gt; config set requirepass test123</p>
+<p>查询密码：
+redis 127.0.0.1:6379&gt; config get requirepass
+ (error) ERR operation not permitted</p>
+<p>密码验证：
+redis 127.0.0.1:6379&gt; auth test123
+ OK</p>
+<p>再次查询：</p>
+<p>redis 127.0.0.1:6379&gt; config get requirepass
+1) "requirepass"
+2) "test123"</p>
+<p>PS：如果配置文件中没添加密码 那么redis重启后，密码失效</p>
+<h2 id="mysql">五、Mysql数据库</h2>
+<p>软件包下载与解压</p>
+<pre><code>tar  -xzvf      mysql-5.6.51-linux-glibc2.12-x86_64.tar.gz
+mv   mysql-5.6.51-linux-glibc2.12-x86_64   /opt/mysql
+</code></pre>
+<p>创建数据和日志目录</p>
+<pre><code>mkdir   -p /opt/mysql/data
+mkdir   -p  /opt/mysql/logs
+</code></pre>
+<pre><code>useradd  mysql
+chown    -R mysql:mysql   /opt/mysql
+</code></pre>
+<p>配置MySQL环境变量</p>
+<pre><code>cat   &gt;&gt;  /etc/profile  &lt;&lt; EOF
+export    PATH=\$PATH:/opt/mysql/bin
+EOF
+source  /etc/profile
+</code></pre>
+<p>初始化数据库</p>
+<pre><code>/opt/mysql/scripts/mysql_install_db    --user=mysql    --basedir=/opt/mysql   --datadir=/opt/mysql/data
+</code></pre>
+<p>初始化数据库报错：
+- 1、FATAL ERROR: please install the following Perl modules before executing /opt/mysql/scripts/mysql_install_db:
+Data::Dumpe</p>
+<pre><code>yum -y install autoconf
+</code></pre>
+<ul>
+<li>2、Installing MySQL system tables.../opt/mysql/bin/mysqld: error while loading shared libraries: libaio.so.1: cannot open shared object file: No such file or directory</li>
+</ul>
+<pre><code>yum install libaio* -y
+</code></pre>
+<p>MySQL配置文件</p>
+<pre><code>cat  &gt;&gt;   /opt/mysql/my.cnf   &lt;&lt; EOF
+[mysql]
+socket=/tmp/mysql.sock
+character-set-server=utf8
+[client]
+socket=/tmp/mysql.sock
+[mysqld]
+user = mysql
+port=3306
+socket=/tmp/mysql.sock
+pid-file=/opt/mysql/mysqld.pid
+character-set-server=utf8
+collation-server = utf8_general_ci
+basedir=/opt/mysql
+datadir=/opt/mysql/data
+log-error=/opt/mysql/logs/mysqld.log
+default_storage_engine=Innodb
+max_connections = 1024
+EOF
+</code></pre>
+<p>使用mysql.server命令去启动mysql</p>
+<pre><code>cp   /opt/mysql/support-files/mysql.server   /opt/mysql/bin
+</code></pre>
+<p>在mysql.server命令里面添加basedir和datadir的路径</p>
+<pre><code>cat   mysql.server
+basedir=/opt/mysql
+datadir=/opt/mysql/data
+</code></pre>
+<p>启动mysql</p>
+<pre><code>mysql.server   start
+mysql.server   status
+</code></pre>
+<p>mysql密码设置</p>
+<pre><code>mysqladmin    -uroot  password    '2wsx#EDC'
+</code></pre>
+<p>mysql 登录</p>
+<pre><code>mysql   -uroot -p
+</code></pre>
+<p>创建root远程登录用户</p>
+<pre><code>GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY '123456' WITH GRANT OPTION;
+flush  privilieges;
+</code></pre>
+<h2 id="docker">六、Docker容器服务</h2>
+<p>安装依赖</p>
+<pre><code>sudo yum install -y yum-utils   device-mapper-persistent-data   lvm2
+</code></pre>
+<p>添加阿里云Docker源</p>
+<pre><code>curl -o /etc/yum.repos.d/docker-ce.repo https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
+</code></pre>
+<p>安装Docker</p>
+<pre><code>sudo yum -y  install docker-ce
+</code></pre>
+<p>迁移docker容器默认存放目录</p>
+<pre><code>mv /var/lib/docker /opt/docker
+ln -s /opt/docker /var/lib/docker
+</code></pre>
+<p>配置Docker镜像加速</p>
+<pre><code>curl -sSL https://get.daocloud.io/daotools/set_mirror.sh | sh -s http://f1361db2.m.daocloud.io
+</code></pre>
+<p>查看镜像加速配置</p>
+<pre><code>cat  /etc/docker/daemon.json
+</code></pre>
+<p>启动Docker服务并设置开机启动</p>
+<pre><code>systemctl enable docker
+systemctl start docker
+</code></pre>
+<p>开启路由转发功能
+否则容器中的实例上不了网。</p>
+<pre><code>echo 1 &gt; /proc/sys/net/ipv4/ip_forward
+</code></pre>
+<p>使用非 root 用户管理docker</p>
+<p>默认情况下，docker只能在root用户权限下运行，非root用户需要使用sudo才能运行。最新版的Docker通过添加docker用户组来实现非root权限用户操作docker的功能。需要注意的是，docker用户组实质上和root用户是一样的，因此其对系统安全的影响也是一样的。要使用非root用户管理docker。</p>
+<p>首先创建 docker 用户组：</p>
+<pre><code>sudo groupadd docker
+</code></pre>
+<p>然后将当前用户添加到 docker 用户组中：</p>
+<pre><code>sudo usermod -aG docker $USER
+</code></pre>
+<p>注销当前用户并重新登录（或者重启电脑）后，用户即可被添加到 docker 用户组中。在linux系统中，也可以通过以下命令快速激活 docker 用户组。</p>
+<pre><code>newgrp docker
+</code></pre>
+<h2 id="docker_1">七、Docker容器管理</h2>
+<p>下载 Docker Compose 的当前稳定版本：</p>
+<pre><code>sudo curl -L &quot;https://github.com/docker/compose/releases/download/1.28.5/docker-compose-$(uname -s)-$(uname -m)&quot; -o /usr/local/bin/docker-compose
+</code></pre>
+<p>将可执行权限应用于二进制文件：</p>
+<pre><code>sudo chmod +x /usr/local/bin/docker-compose
+</code></pre>
+<p>测试是否安装成功：</p>
+<pre><code>docker-compose --version
+</code></pre>
+<h2 id="tftp">八、TFTP文件服务脚本</h2>
+<p>cat  ftp.sh</p>
+<pre><code class="language-shell">#!/bin/bash
+export  JAVA_HOME=/root/ftp/jdk1.8.0_231/bin
+client_primary=/home/admin/www/njbank/wageftp
+client_success=/home/admin/www/njbank/wagepay
+for  i  in   $(ls     ${client_primary})
+do
+  date=$(echo   &quot;$i&quot;  |  cut  -d &quot;_&quot; -f 4  |  cut  -c  1-8)
+  count=$(java  -Desb.cfg.path=/root/ftp/TFTClient/config   -jar  /root/ftp/TFTClient/tftclient.jar   -h 1   -dup  -cf $client_primary/$i   -sf   $i)
+  if  [ $count -eq  0 ] ; then
+  mkdir -p  ${client_success}/$date
+  mv  $client_primary/$i   $client_success/$date
+  fi
+done
+</code></pre>
+<p>Client有三个目录：临时目录、上传目录、备份目录
+代码会在临时目录里面生成写入的文件，当文件写入完成，代码会移动到上传目录，ftp.sh脚本会定时扫描上传目录是否有文件，如果有就上传，上传成功的同时会把文件移动到备份目录</p>
+<p>client_primary 上传文件目录的路径</p>
+<p>client_success 备份目录路径</p>
+<p>要指定JDK的命令路径,脚本里面可能找不到java命令</p>
+<pre><code>export  JAVA_HOME=/root/ftp/jdk1.8.0_231/bin
+</code></pre>
+<p>Client安装在/root/ftp/TFTClient/下
+JAVA 在调取jar包时是要指定绝对路径/root/ftp/TFTClient/tftclient.jar、/root/ftp/TFTClient/config</p>
+<p>每分钟执行ftp.sh脚本</p>
+<pre><code>* *  * * * /bin/sh   /root/ftp/ftp.sh
+</code></pre>
+<h2 id="_1">九、数据库信息</h2>
+<table>
+<thead>
+<tr>
+<th>用途</th>
+<th>数据类型</th>
+<th>数据库名</th>
+<th>用户</th>
+<th>密码</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>mysql 业务库</td>
+<td>mysql</td>
+<td>sit_kayak_nanjingbank</td>
+<td>nanjing</td>
+<td></td>
+</tr>
+<tr>
+<td>mongo 业务库</td>
+<td>mongodb</td>
+<td>kayaknanjingbank</td>
+<td>nanjing</td>
+<td></td>
+</tr>
+<tr>
+<td>mongo 日志</td>
+<td>mongodblogs</td>
+<td>nanjingbanklogs</td>
+<td>nanjinglogs</td>
+<td></td>
+</tr>
+<tr>
+<td>mongo 分析库</td>
+<td>nanjingbankdatacount</td>
+<td>nanjingbankdatacount</td>
+<td>nanjingdata</td>
+<td></td>
+</tr>
+<tr>
+<td>mongo 消息库</td>
+<td>nanjingbanknews</td>
+<td>nanjingbanknews</td>
+<td>nanjingnews</td>
+<td></td>
+</tr>
+<tr>
+<td>mongo ids统一认证</td>
+<td>nanjingbankids</td>
+<td>nanjingbankids</td>
+<td>nanjingids</td>
+<td></td>
+</tr>
+<tr>
+<td>mongo 经放薪理库</td>
+<td>nanjingbankmanager</td>
+<td>nanjingbankmanager</td>
+<td>anjingmanager</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="python">十、放薪经理同步python脚本定时任务</h2>
+<p>1、python3.7环境安装</p>
+<p>注意：需要root权限</p>
+<p>查看python版本:</p>
+<p>python --version</p>
+<p>下载Python-3.7.10</p>
+<p>wget https://www.python.org/ftp/python/3.7.10/Python-3.7.10.tgz</p>
+<p>压缩包附带软件包</p>
+<p>解压</p>
+<p>tar   zxvf   Python-3.7.10.tgz</p>
+<p>更改工作目录</p>
+<p>cd Python-3.7.10</p>
+<p>安装系统依赖</p>
+<p>yum install zlib<em> openssl-</em></p>
+<p>修改安装文件</p>
+<p>Python-3.7.10/Modules/Setup.dist</p>
+<p>找到SSL 具体行数为211,打开211-214行的注释</p>
+<p>修改SSL=/etc/ssl 保存记录</p>
+<p>然后确认下路径/etc/ssl 路径有内容 不需要自己创建 系统默认安装有的</p>
+<p>安装</p>
+<p>./configure  --with-ssl
+make all           <br />
+make install<br />
+make clean<br />
+make distclean  </p>
+<p>查看版本信息</p>
+<p>/usr/local/bin/python3.7 -V </p>
+<p>安装依赖</p>
+<p>pip3 install --no-index --find-links=/tmp/packages  -r requirments.txt </p>
+<p>2、脚本配置方法</p>
+<p>数据指标计算 自动化部署</p>
+<pre><code>经理指标数据跑批部署，操作流程
+前置条件：
+    服务器上需要按照python3环境、mongo环境
+1.将 njcb 文件夹拷贝到服务器对应用户下，位置自定义
+2.修改以下两个文件的对应变量
+    【修改 python 命令路径、mongodb 命令路径、数据库地址、用户目录等，详见代码注释】
+    ①/njcb/csv/csvlinux.py
+    ②/njcb/count/countlinux.py
+3.修改完之后
+    执行①csvlinux.py 对应生成 ③datacount_days.sh
+    执行②countlinux.py 对应生成 ④fxjl_days.sh
+    ③④脚本在 host_user 变量指定目录下生成
+4.配置定时任务，按顺序执行脚本 ③datacount_days.sh、④fxjl_days.sh 
+    并且③和④脚本的执行间隔一小时(根据数据量大小调整时间)
+</code></pre>
+<pre><code>windows 平台下执行countwindows.py脚本
+linux 平台下执行countlinux.py脚本
+</code></pre>
+<p>环境要求</p>
+<pre><code>linux、window 服务环境下必须安装mongodb数据库、python3环境
+</code></pre>
+<p>配置修改</p>
+<pre><code>1.修改mongodb相关配置
+mongo_path：mongodb 命令，环境变量所在的目录
+mongo_db_host：mongodb 数据库连接
+mongo_db_host1：mongodb 数据库连接（备份节点1，如果只有一个节点，将三个配置成一样）
+mongo_db_host2：mongodb 数据库连接（备份节点2）
+mongo_db_user：数据库用户名
+mongo_db_password：数据库密码
+
+2.修改python执行配置
+python_path：python命令，环境变量所在的目录
+
+3.修改服务器主目录
+host_user：window下，任意目录即可。linux环境下，须指定home目录下用户的根目录，例如:root用户，则host_user=/home/root
+</code></pre>
+<p>定时任务配置</p>
+<pre><code>配置定时任务：入口 fxjl_days.sh 文件
+将fxjl_days.sh 脚本配置成定时跑批任务
+</code></pre>
+<h2 id="_2">十一、员工信息同步</h2>
+<pre><code>#!/bin/bash
+export  JAVA_HOME=/root/ftp/jdk1.8.0_231
+client_primary=/home/admin/www/upload/data_extracting/empsyn
+client_backup=/home/admin/www/upload/data_extracting/empsyn/backup
+for  i  in   $(ls     ${client_primary} | grep  .csv)
+do
+  count=$(java  -Desb.cfg.path=/root/ftp/TFTClient/config   -jar  /root/ftp/TFTClient/tftclient.jar   -h 1   -dup  -cf $client_primary/$i   -sf   $i)
+  if  [ $count -eq  0 ] ; then
+  mv  $client_primary/$i   $client_backup
+  fi
+done
+</code></pre>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../manifests/prod.html" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  上一页
+                </span>
+                生产配置推荐
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="consul.html" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  下一页
+                </span>
+                Consul集群
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            北京开科唯识技术股份有限公司
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/vendor.18f0862e.min.js"></script>
+      <script src="../assets/javascripts/bundle.994580cf.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.placeholder": "\u641c\u7d22", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      
+      <script>
+        app = initialize({
+          base: "..",
+          features: [],
+          search: Object.assign({
+            worker: "../assets/javascripts/worker/search.9c0e82ba.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+    
+  </body>
+</html>
