@@ -1,147 +1,334 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>我的个性化博客</title>
-<style>
-    /* 页面整体样式 */
-    body {
-        margin: 0;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
-        color: #333;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        min-height: 100vh;
-    }
-
-    header {
-        text-align: center;
-        padding: 60px 20px 20px 20px;
-        background: rgba(255, 255, 255, 0.2);
-        border-radius: 20px;
-        margin: 20px;
-        backdrop-filter: blur(10px);
-        box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-    }
-
-    header h1 {
-        font-size: 3em;
-        margin-bottom: 10px;
-        background: linear-gradient(90deg, #ff7e5f, #feb47b);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        animation: gradientText 5s ease infinite;
-    }
-
-    header p {
-        font-size: 1.2em;
-        color: #fff;
-    }
-
-    @keyframes gradientText {
-        0% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-        100% { background-position: 0% 50%; }
-    }
-
-    main {
-        width: 90%;
-        max-width: 900px;
-        margin-top: 20px;
-    }
-
-    .post {
-        background: rgba(255, 255, 255, 0.25);
-        border-radius: 15px;
-        padding: 20px;
-        margin: 15px 0;
-        backdrop-filter: blur(5px);
-        transition: transform 0.3s, box-shadow 0.3s;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    }
-
-    .post:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 8px 25px rgba(0,0,0,0.2);
-    }
-
-    .post h2 {
-        margin-top: 0;
-        color: #fff;
-    }
-
-    .post p {
-        color: #f0f0f0;
-    }
-
-    footer {
-        margin: 40px 0;
-        text-align: center;
-        color: #fff;
-    }
-
-    footer a {
-        color: #ffeb3b;
-        text-decoration: none;
-        margin: 0 10px;
-        transition: color 0.3s;
-    }
-
-    footer a:hover {
-        color: #ff5722;
-    }
-
-    /* 按钮样式 */
-    .btn {
-        display: inline-block;
-        margin-top: 10px;
-        padding: 10px 20px;
-        background: linear-gradient(90deg, #ff7e5f, #feb47b);
-        color: #fff;
-        border: none;
-        border-radius: 25px;
-        cursor: pointer;
-        text-decoration: none;
-        transition: transform 0.3s, box-shadow 0.3s;
-    }
-
-    .btn:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    }
-
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>天蓝色博客 - 分享技术与生活</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
-<header>
-    <h1>我的炫彩博客</h1>
-    <p>记录生活点滴，分享精彩瞬间</p>
-</header>
+    <!-- 导航栏 -->
+    <header class="header">
+        <nav class="nav-container">
+            <div class="logo">
+                <h1><i class="fas fa-snowflake"></i> 天蓝色博客</h1>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link">首页</a></li>
+                <li><a href="#articles" class="nav-link">文章</a></li>
+                <li><a href="#categories" class="nav-link">分类</a></li>
+                <li><a href="#about" class="nav-link">关于</a></li>
+                <li><a href="#contact" class="nav-link">联系</a></li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </nav>
+    </header>
 
-<main>
-    <div class="post">
-        <h2>博客文章标题 1</h2>
-        <p>这里是文章摘要，让访问者快速了解内容亮点。你可以添加更多文字，也可以添加图片和链接。</p>
-        <a href="#" class="btn">阅读更多</a>
-    </div>
-    <div class="post">
-        <h2>博客文章标题 2</h2>
-        <p>文章摘要示例，简洁明了，吸引读者点击阅读全文。</p>
-        <a href="#" class="btn">阅读更多</a>
-    </div>
-    <div class="post">
-        <h2>博客文章标题 3</h2>
-        <p>继续展示你的精彩内容，让页面充满活力和个性。</p>
-        <a href="#" class="btn">阅读更多</a>
-    </div>
-</main>
+    <!-- 主要内容区域 -->
+    <main class="main-container">
+        <div class="hero-section">
+            <div class="hero-content">
+                <h2>欢迎来到天蓝色博客</h2>
+                <p>在这里分享技术心得、生活感悟与创意灵感</p>
+                <div class="search-bar">
+                    <input type="text" placeholder="搜索文章..." id="searchInput">
+                    <button type="button" class="search-btn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
 
-<footer>
-    <p>© 2025 我的炫彩博客</p>
-    <a href="#">GitHub</a> | <a href="#">Twitter</a> | <a href="#">联系我</a>
-</footer>
+        <div class="content-wrapper">
+            <!-- 博客文章列表 -->
+            <div class="blog-section">
+                <div class="section-header">
+                    <h3>最新文章</h3>
+                    <div class="filter-tabs">
+                        <button class="tab-btn active">全部</button>
+                        <button class="tab-btn">技术</button>
+                        <button class="tab-btn">生活</button>
+                        <button class="tab-btn">设计</button>
+                    </div>
+                </div>
+
+                <!-- 文章卡片 -->
+                <div class="blog-grid">
+                    <article class="blog-card">
+                        <div class="blog-image">
+                            <img src="https://picsum.photos/seed/tech1/400/250.jpg" alt="文章配图">
+                            <span class="category-tag">技术</span>
+                        </div>
+                        <div class="blog-content">
+                            <h4>现代Web开发趋势解析</h4>
+                            <p class="excerpt">深入探讨2024年Web开发的最新趋势，包括React 19、Vue 3的新特性以及AI在前端开发中的应用...</p>
+                            <div class="blog-meta">
+                                <span class="author"><i class="fas fa-user"></i> 张三</span>
+                                <span class="date"><i class="fas fa-calendar"></i> 2024-12-01</span>
+                                <span class="read-time"><i class="fas fa-clock"></i> 5分钟</span>
+                            </div>
+                            <div class="blog-tags">
+                                <span class="tag">JavaScript</span>
+                                <span class="tag">React</span>
+                                <span class="tag">AI</span>
+                            </div>
+                            <button class="read-more">阅读更多</button>
+                        </div>
+                    </article>
+
+                    <article class="blog-card">
+                        <div class="blog-image">
+                            <img src="https://picsum.photos/seed/design1/400/250.jpg" alt="文章配图">
+                            <span class="category-tag">设计</span>
+                        </div>
+                        <div class="blog-content">
+                            <h4>色彩搭配的艺术</h4>
+                            <p class="excerpt">探索色彩心理学在设计中的应用，学习如何通过色彩搭配创造出和谐美观的用户界面...</p>
+                            <div class="blog-meta">
+                                <span class="author"><i class="fas fa-user"></i> 李四</span>
+                                <span class="date"><i class="fas fa-calendar"></i> 2024-11-28</span>
+                                <span class="read-time"><i class="fas fa-clock"></i> 8分钟</span>
+                            </div>
+                            <div class="blog-tags">
+                                <span class="tag">UI设计</span>
+                                <span class="tag">色彩</span>
+                                <span class="tag">心理学</span>
+                            </div>
+                            <button class="read-more">阅读更多</button>
+                        </div>
+                    </article>
+
+                    <article class="blog-card">
+                        <div class="blog-image">
+                            <img src="https://picsum.photos/seed/life1/400/250.jpg" alt="文章配图">
+                            <span class="category-tag">生活</span>
+                        </div>
+                        <div class="blog-content">
+                            <h4>数字极简主义的生活方式</h4>
+                            <p class="excerpt">在数字化时代寻找平衡，探讨如何通过减少屏幕时间和简化数字生活来提升生活品质...</p>
+                            <div class="blog-meta">
+                                <span class="author"><i class="fas fa-user"></i> 王五</span>
+                                <span class="date"><i class="fas fa-calendar"></i> 2024-11-25</span>
+                                <span class="read-time"><i class="fas fa-clock"></i> 6分钟</span>
+                            </div>
+                            <div class="blog-tags">
+                                <span class="tag">生活哲学</span>
+                                <span class="tag">极简主义</span>
+                                <span class="tag">健康</span>
+                            </div>
+                            <button class="read-more">阅读更多</button>
+                        </div>
+                    </article>
+
+                    <article class="blog-card">
+                        <div class="blog-image">
+                            <img src="https://picsum.photos/seed/code1/400/250.jpg" alt="文章配图">
+                            <span class="category-tag">技术</span>
+                        </div>
+                        <div class="blog-content">
+                            <h4>JavaScript性能优化指南</h4>
+                            <p class="excerpt">从内存管理到异步处理，全面介绍JavaScript性能优化的最佳实践和技巧...</p>
+                            <div class="blog-meta">
+                                <span class="author"><i class="fas fa-user"></i> 赵六</span>
+                                <span class="date"><i class="fas fa-calendar"></i> 2024-11-22</span>
+                                <span class="read-time"><i class="fas fa-clock"></i> 10分钟</span>
+                            </div>
+                            <div class="blog-tags">
+                                <span class="tag">JavaScript</span>
+                                <span class="tag">性能优化</span>
+                                <span class="tag">开发技巧</span>
+                            </div>
+                            <button class="read-more">阅读更多</button>
+                        </div>
+                    </article>
+
+                    <article class="blog-card">
+                        <div class="blog-image">
+                            <img src="https://picsum.photos/seed/travel1/400/250.jpg" alt="文章配图">
+                            <span class="category-tag">生活</span>
+                        </div>
+                        <div class="blog-content">
+                            <h4>背包客的摄影技巧分享</h4>
+                            <p class="excerpt">旅途中捕捉美好瞬间，分享背包客摄影的实用技巧和设备选择建议...</p>
+                            <div class="blog-meta">
+                                <span class="author"><i class="fas fa-user"></i> 孙七</span>
+                                <span class="date"><i class="fas fa-calendar"></i> 2024-11-20</span>
+                                <span class="read-time"><i class="fas fa-clock"></i> 7分钟</span>
+                            </div>
+                            <div class="blog-tags">
+                                <span class="tag">摄影</span>
+                                <span class="tag">旅行</span>
+                                <span class="tag">户外</span>
+                            </div>
+                            <button class="read-more">阅读更多</button>
+                        </div>
+                    </article>
+
+                    <article class="blog-card">
+                        <div class="blog-image">
+                            <img src="https://picsum.photos/seed/mobile1/400/250.jpg" alt="文章配图">
+                            <span class="category-tag">技术</span>
+                        </div>
+                        <div class="blog-content">
+                            <h4>移动端开发最佳实践</h4>
+                            <p class="excerpt">从响应式设计到触控优化，全面掌握移动端Web开发的核心理念和实现方法...</p>
+                            <div class="blog-meta">
+                                <span class="author"><i class="fas fa-user"></i> 周八</span>
+                                <span class="date"><i class="fas fa-calendar"></i> 2024-11-18</span>
+                                <span class="read-time"><i class="fas fa-clock"></i> 12分钟</span>
+                            </div>
+                            <div class="blog-tags">
+                                <span class="tag">移动开发</span>
+                                <span class="tag">响应式设计</span>
+                                <span class="tag">用户体验</span>
+                            </div>
+                            <button class="read-more">阅读更多</button>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 分页 -->
+                <div class="pagination">
+                    <button class="page-btn active">1</button>
+                    <button class="page-btn">2</button>
+                    <button class="page-btn">3</button>
+                    <button class="page-btn">»</button>
+                </div>
+            </div>
+
+            <!-- 侧边栏 -->
+            <aside class="sidebar">
+                <!-- 搜索框 -->
+                <div class="sidebar-widget search-widget">
+                    <h4>搜索文章</h4>
+                    <div class="search-input-container">
+                        <input type="text" placeholder="输入关键词搜索...">
+                        <button class="search-btn-sidebar">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 分类 -->
+                <div class="sidebar-widget categories-widget">
+                    <h4>文章分类</h4>
+                    <ul class="category-list">
+                        <li><a href="#">技术 <span>(12)</span></a></li>
+                        <li><a href="#">生活 <span>(8)</span></a></li>
+                        <li><a href="#">设计 <span>(6)</span></a></li>
+                        <li><a href="#">旅行 <span>(4)</span></a></li>
+                        <li><a href="#">摄影 <span>(5)</span></a></li>
+                        <li><a href="#">美食 <span>(3)</span></a></li>
+                    </ul>
+                </div>
+
+                <!-- 热门标签 -->
+                <div class="sidebar-widget tags-widget">
+                    <h4>热门标签</h4>
+                    <div class="tag-cloud">
+                        <a href="#" class="tag-item">JavaScript</a>
+                        <a href="#" class="tag-item">React</a>
+                        <a href="#" class="tag-item">设计</a>
+                        <a href="#" class="tag-item">摄影</a>
+                        <a href="#" class="tag-item">旅行</a>
+                        <a href="#" class="tag-item">生活</a>
+                        <a href="#" class="tag-item">AI</a>
+                        <a href="#" class="tag-item">Web开发</a>
+                        <a href="#" class="tag-item">UI/UX</a>
+                        <a href="#" class="tag-item">极简主义</a>
+                        <a href="#" class="tag-item">性能优化</a>
+                        <a href="#" class="tag-item">移动开发</a>
+                    </div>
+                </div>
+
+                <!-- 关于博主 -->
+                <div class="sidebar-widget about-widget">
+                    <h4>关于博主</h4>
+                    <div class="about-content">
+                        <img src="https://picsum.photos/seed/avatar/80/80.jpg" alt="博主头像" class="author-avatar">
+                        <h5>张三</h5>
+                        <p>全栈开发工程师，热爱技术分享，追求极简生活方式。专注于前端开发和用户体验设计。</p>
+                        <div class="social-links">
+                            <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 热门文章 -->
+                <div class="sidebar-widget popular-widget">
+                    <h4>热门文章</h4>
+                    <div class="popular-list">
+                        <div class="popular-item">
+                            <h5>1. 现代Web开发趋势解析</h5>
+                            <span class="views">1.2k 阅读</span>
+                        </div>
+                        <div class="popular-item">
+                            <h5>2. JavaScript性能优化指南</h5>
+                            <span class="views">986 阅读</span>
+                        </div>
+                        <div class="popular-item">
+                            <h5>3. 色彩搭配的艺术</h5>
+                            <span class="views">756 阅读</span>
+                        </div>
+                        <div class="popular-item">
+                            <h5>4. 移动端开发最佳实践</h5>
+                            <span class="views">634 阅读</span>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h5>关于天蓝色博客</h5>
+                <p>一个分享技术、设计、生活和创意的个人博客，致力于为读者有价值的内容和启发。</p>
+            </div>
+            <div class="footer-section">
+                <h5>快速链接</h5>
+                <ul class="footer-links">
+                    <li><a href="#">首页</a></li>
+                    <li><a href="#">文章</a></li>
+                    <li><a href="#">分类</a></li>
+                    <li><a href="#">关于</a></li>
+                    <li><a href="#">联系</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h5>关注我们</h5>
+                <div class="social-icons">
+                    <a href="#" class="social-icon"><i class="fab fa-weixin"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-weibo"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h5>订阅更新</h5>
+                <p>订阅我们的邮件列表，获取最新文章更新</p>
+                <div class="newsletter-form">
+                    <input type="email" placeholder="输入您的邮箱" id="newsletter">
+                    <button type="button" class="subscribe-btn">订阅</button>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 天蓝色博客. 保留所有权利. | <a href="#">隐私政策</a> | <a href="#">使用条款</a></p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>
